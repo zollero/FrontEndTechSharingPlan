@@ -24,7 +24,7 @@
 
 + 对象直接量：{}
 + 通过new 创建对象
-+ 原型继承
++ 原型模式
 + Object.create()  （ECMAScript 5）
 
 ### 1. 对象直接量
@@ -87,7 +87,94 @@ JavaScript内置了一些原始类型的构造函数.如:
     优点：代码灵活，可以创建不同属性值的同类对象。
     缺点：通常，同个对象的实例方法都是一样的，造成了冗余。
 
-### 3. 原型继承
+### 3. 原型模式
+
+原型模式很好的解决上马的封装性问题，默认情况下，每个对象和它的实例都共用一个原型。对象可以通过 .prototype 访问原型。
+
+上面的方法改用原型写时：
+
+        var Person = function() {};
+        Person.prototype.name = "Kevin";
+        Person.prototype.age = "19";
+        Person.prototype.sayHi = function() {
+            alert("Hi, I am " + this.name + ".");
+        };
+        
+        var person1 = new Person();
+        person1.sayHi();    //Hi, I am Kevin.
+        
+        var person2 = new Person();
+        person2.sayHi();    //Hi, I am Kevin.
+        
+        alert(person1.sayHi == person2.sayHi);  //true
+
+上例中，person1 和 person2 共用Person的原型。当Person的原型改变时，person1 和 person2的引用会跟着改变。
+
+        Person.prototype.sayHi = function() {
+            alert("hi");
+        };
+        
+        person1.sayHi();    //hi
+        person2.sayHi();    //hi
+
+注意：当实例上存在与原型崇明的属性是，实例的属性会屏蔽掉原型的属性。因为要先查看实例中有无该属性，
+没有找到才会去原型中查找。
+
+所以，对象可以重写原型，但此时已创建的实例依然指向旧原型。
+
+优缺点：
+
+        优点：共用原型减少了冗余。
+        缺点：在原型上的改变会影响到所有的实例，于是实例没有了独立性。
+
+####原型模式还有很多演变，并可以和构造函数组合使用。下面使用例子：
+
+        var Person = function(name, age) {
+            this.name = name;
+            this.age = age;
+            this.friends = ["KK", "CC"]
+        }
+        
+        Person.prototype = {
+            constructor: Person,
+            sayHi: function() {
+                alert("Hi, I am " + this.name);
+            }
+        }
+        
+        var person1 = new Person("Kevin", 18);
+        var person2 = new Person("Mark", 20);
+        
+        person1.friends.push("BB");
+        alert(person1.friends);     //KK, CC, BB
+        alert(person2.friends);     //KK, CC
+        alert(person1.friends === person2.friends);     //false
+        alert(person1.sayHi === person2.sayHi);     //true
+
+优缺点：
+
+        优点：结合了构造函数模式和原型模式的优点。
+        缺点：代码没有很好的封装起来。
+
+### 4. Object.create()  （ECMAScript 5）
+
+写法：Object.create(proto, [ propertiesObject ])
+
+该方法是个静态函数。
+
+> proto 是一个对象，作为新创建对象的原型。
+    
+> propertiesObject  可选。该参数对象是一组属性与值，该对象的属性名称将是新创建的对象的属性名称（如：可写性，可枚举行和可配置性等）。
+
+
+        //若传入 null ，则新创建对象不继承任何原型，甚至不包括基础方法，如toString()，即不能和“ + ” 运算符一起正常工作。
+        var o1 = Object.create(null);
+        
+        //如果想创建一个空对象（如通过 {} 和 new Object()创建的对象），需要传入Object.prototype
+        var o2 = Object.create(Object.prototype);
+
+
+
 
 
 
