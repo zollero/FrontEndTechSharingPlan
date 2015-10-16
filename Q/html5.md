@@ -16,13 +16,13 @@
    
 2.删除元素
 
-    表现性元素：`<big>、<center>、<font>、<tt>、<strike>`
++   表现性元素：`<big>、<center>、<font>、<tt>、<strike>`
     
-    不再使用frame框架，只支持iframe：`<frameset>、<frame>、<noframes>`
++   不再使用frame框架，只支持iframe：`<frameset>、<frame>、<noframes>`
     
-    只有部分浏览器支持的元素：`<applet>(由<embed>或<object>替代)、<bgsound>(由<audio>替代)、<marquee>、<blink>`
++   只有部分浏览器支持的元素：`<applet>(由<embed>或<object>替代)、<bgsound>(由<audio>替代)、<marquee>、<blink>`
     
-    其他废除的元素：`<acronym>(用<abbr>替代)、<dir>(用<ul>替代)、<rb>(用<ruby>替代)`
++   其他废除的元素：`<acronym>(用<abbr>替代)、<dir>(用<ul>替代)、<rb>(用<ruby>替代)`
   
 3.改变元素
   
