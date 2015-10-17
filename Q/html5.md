@@ -2,7 +2,7 @@
 
 1.新增元素
  
-+   用于构建页面的语义元素：`<header>、<footer>、<nav>、<section>、<artical>、<aside>、<details>、<hgroup>、<figure>、<figcaption>、<summary>`
++   用于构建页面的语义元素：`<header>、<footer>、<nav>、<section>、<article>、<aside>、<details>、<hgroup>、<figure>、<figcaption>、<summary>`
 
 +   用于标识文本的语义元素：`<mark>、<time>、<wbr>`
 
@@ -42,11 +42,11 @@
 
 ##新增的主题结构元素
 
-+ `<artical>`元素表示页面中的一块与上下文不相关的独立内容，譬如博客中的一篇文章或报纸中的一篇文章。HTML4中使用的`<div>`
++ `<article>`元素表示页面中的一块与上下文不相关的独立内容，譬如博客中的一篇文章或报纸中的一篇文章。HTML4中使用的`<div>`
   
-  artical元素代表文档、页面或应用程序中独立的、完整的、可以独自被外部引用的内容。它可以是一篇博客或报刊中的文章、一篇论坛帖子、一段用户评论或独立的插件，或其他任何独立的内容。
+  article元素代表文档、页面或应用程序中独立的、完整的、可以独自被外部引用的内容。它可以是一篇博客或报刊中的文章、一篇论坛帖子、一段用户评论或独立的插件，或其他任何独立的内容。
   
-  除了内容部分，一个artical元素通常有它自己的标题（一般放在一个header元素里面），有时还有自己的脚注。
+  除了内容部分，一个article元素通常有它自己的标题（一般放在一个header元素里面），有时还有自己的脚注。
   
 ```
 <article>
@@ -61,10 +61,42 @@
 </article>
 ```
 
-+ `<section>`元素表示页面中一个内容区块，比如章节、页眉、页脚或页面中的其他部分。它可以与h1、h2、h3、h4、h5、h6等元素结合起来使用，表示文档结构。HTML4中使用的`<div>`
-+ `<aside>`元素表示artical元素的内容之外的、与artical元素的内容相关的辅助信息。HTML4中使用的`<div>`
++ `<section>`元素表示页面中一个内容区块，比如章节、页眉、页脚或页面中的其他部分。它可以与h1、h2、h3、h4、h5、h6等元素结合起来使用，表示文档结构。HTML4中使用的`<div>`，但section元素并非一个普通的容器元素；当一个容器需要被直接定义样式或通过脚本定义行为时，则推荐使用div而不是section。
+
+以下情况不适合使用section：
+1. 不要将section元素用作设置样式的页面容器，那是div的工作
+2. 如果article元素、aside元素或nav元素更符合使用条件，不使用section元素
+3. 不要为没有标题的内容区块使用section元素
+
+```
+<article>
+		<header>
+			<hgroup>
+				<h1>HTML5移动应用开发</h1>
+				<h2>用心写好书</h2>
+			</hgroup>
+			<p><small>人民英雄文学出版社出版</small></p>
+		</header>
+		<section class="chapter">
+			<h1>第一章</h1>
+			<p>移动时代，唯HTML5独尊</p>
+		</section>
+		<section class="chapter">
+			<h1>第二章</h1>
+			<p>HTML基础牢实，方能百战不殆</p>
+		</section>
+		<section class="appendix">
+			<h1>附录A：jquery简明教程</h1>
+			<p>移动时代，唯HTML5独尊</p>
+		</section>
+	</article>
+```
+
++ `<nav>`元素表示页面中导航链接的部分。HTML4中使用的`<ul>` 
+
++ `<aside>`元素表示article元素的内容之外的、与article元素的内容相关的辅助信息。HTML4中使用的`<div>`
 + `<hgroup>`元素用于对整个页面或页面中一个内容区块的标题进行组合。HTML4中使用的`<div>`
-+ `<nav>`元素表示页面中导航链接的部分。HTML4中使用的`<ul>`
+
 + `<figure>`元素表示一段独立的流内容，一般表示文档主体流内容中的一个独立单元。使用figcaption元素为figure元素组添加标题。
 + `<header>`元素表示页面中一个内容区块或整个页面的标题。HTML4中使用的`<div>`
 + `<footer>`元素表示整个页面或页面中一个内容区块的脚注。一般来说，它会包含创作者的姓名、创作日期以及创作者联系信息。HTML4中使用的`<div>`
