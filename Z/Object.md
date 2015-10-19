@@ -175,6 +175,104 @@ JavaScript内置了一些原始类型的构造函数.如:
 
 
 
+## 对象的操作
+
+### 属性的查询和设置
+
+#### 1. 查询
+
+对象可以通过点（.）或方括号（[]）运算符来获取属性的值。运算符左侧应该是一个表达式，它返回一个对象。
+> 对应点（.）来说，右侧必须是一个以属性名称命名的简单标识符。
+> 对于方括号（[]）来说，方括号内必须是一个计算结果为字符串的表达式，这个字符串就是属性的名字。
+
+        var author = book.author;   //得到book的"author"属性
+        var name = author.surname;  //得到author的"surname"属性
+        var title = book["main title"]; //得到book的"main title"属性
+
+用点（.）和方括号（[]）的区别：
+> 1. 点的右侧必须是满足命名规则的标识符，如：不能有空格，不能数字开头；方括号中的表达式要返回一个计算结果是字符串。
+> 2. 点的右侧的标识符不能是保留字（ECMAScript 5 中点右侧可以使用关键字，ECMAScript 3中不可以），如：class等；方括号中可以使用关键字和保留字。
+
+#### 2. 设置
+
+和查询属性值的写法一样，通过点和方括号也可以创建属性或给属性赋值，但需要把它们放在赋值表达式的左侧：
+
+        book.edition = 6;   //给book创建一个名为edition的属性
+        book["main title"] = "ECMAScript";  //给"main title"属性赋值
+
+#### 3. 属性访问错误
+
+属性访问并不一定放回或设置一个值。
+
+查询一个不存在的属性并不会报错，如果在对象 o 自身的属性或继承的属性中均未找到属性 x ，属性访问表达式返回 underfined。
+
+        o.x = underfined;
+
+但是，若对象不存在，那么视图查询这个不存在的对象的属性就会报错。null 和 underfined 都没有属性，因此查询这些值的属性会报错。如下：
+
+        var len = o.x.length;   //抛出异常：underfined 没有 length 属性
+
+##### 避免出错的两张方法
+
+        //No. 1 冗余但易懂的方法
+        var len = underfined;
+        if (o) {
+            if (o.x) len = o.x.length;
+        }
+        
+        //No.2 更简练的常用方法，获取的值是 x 的 length 属性 或 underfined
+        var len = o && o.x && o.x.length;
+
+
+#### 4. 删除属性
+
+delete 运算符可以删除对象的属性。它的操作数应当是一个属性访问表达式。delete 只能删除自由属性，不能删除继承属性。要删除继承属性必须从定义这个属性的原型对象删除它，而且这会影响到所有继承自这个原型的对象。
+> 意外的是，delete只是断开属性和宿主对象的联系，而不会去操作属性中的属性。
+
+        delete book.author;     //book不再有属性 author
+        delete book["main title"];  //book也不再有 main title 属性
+
+
+##### delete 返回值
+
+1. 当delete表达式删除成功或没有任何副作用（比如删除不存在的属性）时，它返回true。如果delete后不是一个属性访问表达式，同样返回true。
+
+        o = {x: 1};     //o有个属性x，并继承属性toString
+        delete o.x;     //删除x，返回true
+        delete o.x;     //什么都没做（x已经不存在了），返回true
+        delete o.toString;      //什么都没做（toString是继承来的），返回true
+        delete 1;       //无意义，返回true
+
+2. delete不能删除那些可配置型为false的属性。某些内置对象的属性是不可配置的，比如通过变量声明和函数什么创建的全局对象的属性。正在严格模式中，删除一个不可配置属性会报一个类型错误。在非严格模式中，在下面这些情况下delete回返回false：
+
+        delete Object.prototype;    //不能删除，属性是不可配置的
+        var x = 1;      //声明一个全局变量
+        delete this.x;      //不能删除这个属性
+        function f() {};        //声明一个全局函数
+        delete this.f;      //也不能删除全局函数
+
+
+3. 当在非严格模式中删除全局对象的可配置属性时，可以省略对全局对象的引用，直接在delete后跟随要删除的属性名即可：
+
+        this.x = 1;     //创建一个可配置的全局属性（没有用var）
+        delete x;       //将它删除
+
+4. 然而在严格模式中，delete后跟随一个非法的操作数（比如x），则会报一个语法错误，因此必须显示指定对象及其属性：
+
+        delete x;       //在严格模式下报语法错误
+        delete this.x;      //正常工作
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
