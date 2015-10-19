@@ -263,17 +263,63 @@ delete 运算符可以删除对象的属性。它的操作数应当是一个属�
         delete this.x;      //正常工作
 
 
+#### 4. 检测属性
+
+检测对象中是否有某个属性的方法：
+
+1. in 运算符
+
+in运算符左侧是属性名（字符串），右侧是对象。如果对象的自由属性或继承属性中包含这个属性则返回true：
+
+        var o = {x: 1};
+        "x" in o;       //true
+        "y" in o;       //false
+        "toString" in o;    //true，o继承toString属性
+
+2. hasOwnProperty()
+
+对象的hasOwnProperty() 方法用来检测给点的名字是否是对象的自由属性。对应继承属性它将返回false：
+
+        var o = {x: 1};
+        o.hasOwnProperty("x");  //true
+        o.hasOwnProperty("y");  //false
+        o.hasOwnProperty("toString");   //false
+
+3. propertyIsEnumerable()
+
+propertyIsEnumerable() 是hasOwnProperty()的增强版，只有检测到时自由属性且这个属性的可枚举性（enumerable attribute）为true时才返回true。
+
+        var o = inherit({y:2});
+        o.x = 1;
+        o.propertyIsEnumerable("x");    //true
+        o.propertyIsEnumerable("y");    //false
+
+4. 使用!== "underfined"
+
+还有一个更简便的方法是使用 ”!==“判断一个属性是否是underfined。不管是自由属性还是继承属性，都返回true。
+
+        var o = {x:1};
+        o.x !== "underfined";       //true
+        o.y !== "underfined";       //false
+        o.toString !== "underfined";        //true
 
 
+和 in 运算符的区别：
+>  in 可以区分不存在的属性和存在但值为underfined的属性，而!==不能。如下：
+>>  var o = {x: underfined};
+
+>>  o.x !== "underfined";       //false：属性存在，但值为underfined
+
+>>  o.y !== "underfined";       //false：属性不存在
+
+>>  "x" in o        //true
+
+>>  "y" in o        //false
+
+>>  delete o.x        //删除属性x
+
+>>  "x" in o        //false：属性不再存在
 
 
-
-
-
-
-
-
-
-
-
+上述代码中使用的是 !== 运算符，而不是 != 。!== 可以区分 underfined 和 null。有时则不必作这种区分。
 
