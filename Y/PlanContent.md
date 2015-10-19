@@ -1,2 +1,5 @@
-# Yan
-AAAAAAAAAAAAA
+#YAN
+1、JQuery
+敬请期待...
+2、angular
+敬请期待...
