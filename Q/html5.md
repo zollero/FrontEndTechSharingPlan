@@ -93,9 +93,34 @@
 ```
 
 + `<nav>`元素表示页面中导航链接的部分。HTML4中使用的`<ul>` 
-
+```
+	<nav>
+		<ul>
+			<li><a href="#">主页</a></li>
+			<li><a href="#">简介</a></li>
+		</ul>
+	</nav>
+```
 + `<aside>`元素表示article元素的内容之外的、与article元素的内容相关的辅助信息。HTML4中使用的`<div>`
- 
+```
+	<article>
+		<h1>语法</h1>
+		<p>文章的正文。。。</p>
+		<aside>
+			<h1>名词解释</h1>
+			<p>......</p>
+		</aside>
+	</article>
+	<aside>
+		<nav>
+			<h2>评论</h2>
+			<ul>
+				<li><a href="#">20102023</a></li>
+				<li><a href="#">小明：。。。。</a></li>
+			</ul>
+		</nav>
+	</aside>
+```
 
 + `<figure>`元素表示一段独立的流内容，一般表示文档主体流内容中的一个独立单元。使用figcaption元素为figure元素组添加标题。
 
