@@ -295,10 +295,10 @@ JavaScript中的对象实例本质上是由一系列的属性组成的，在这�
 
 #### 总结
 
-> 构造函数 .prototype = 原型对象
+> ##### 构造函数 . prototype = 原型对象
 
-> 原型对象 .constructor = 构造函数(模板)
+> ##### 原型对象 . constructor = 构造函数(模板)
 
-> 原型对象 .isPrototypeof(实例对象) 判断实例对象的原型 是不是当前对象
+> ##### 原型对象 . isPrototypeof(实例对象) 判断实例对象的原型 是不是当前对象
 
 
