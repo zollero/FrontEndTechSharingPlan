@@ -228,21 +228,77 @@ JS在创建对象（不论是普通对象还是函数对象）的时候，都有
 ###### 于是，prototype 应运而生。
 
 
-### 3. 原型是怎么运行的？
+### 3. 怎么使用原型？
 
 
+1. 创建一个对象SuperMan，它有力量和魔法两个属性
+
+        var SuperMan = function(strength, magic) {
+            this.strength = strength;
+            this.magic = magic;
+        }
+
+2. 通过给 prototype的属性赋值对象字面量来设定 SuperMan 对象的原型。
+
+给SuperMan添加两个技能：砍 和 喷火。
+
+        SuperMan.prototype = {
+            cut: function() {
+                return this.strength;
+            },
+            fire: function() {
+                return this.magic;
+            }
+        }
+
+3. 通过 new SuperMan() 来创建实例，并可以调用原型的方法。
+
+        var GuangDong = new SuperMan(200, 400);
+        
+        GuangDong.cut();        //200
+        GuangDong.fire();       //400
 
 
+### 拓展
+
+#### _proto_ 属性
+
+_proto_ 属性（IE浏览器不支持）是实例指向原型对象的一个指针，它的作用就是指向构造函数的原型属性 constructor，通过这两个属性，
+就可以访问原型的属性和方法了。
+
+JavaScript中的对象实例本质上是由一系列的属性组成的，在这些属性中，有一个内部的不可见的特殊属性： _proto_，该属性的值指向该对象实例的原型，一个对象实例只拥有一个唯一的原型。
+
+        function SuperMan() {
+            SuperMan.prototype.name = "GuangDong";
+            SuperMan.prototype.strength = 200;
+            SuperMan.prototype.magic = 400;
+            SuperMan.prototype.fire = function(){
+                return this.magic;
+            }
+        }
+        
+        var o = new SuperMan();
+        console.log(o.constructor);     //构造属性，可以获取构造函数本身
+                                        //作用是被原型指针定位，然后得到构造函数本身
+
+#### _proto_ 属性和 prototype 属性的区别
+
+> 1. prototype是原型对象中专有的属性。
+> 2. _proto_ 是普通对象的隐式属性，在 new 的时候，会指向 prototype 所指的对象。
+> 3. _proto_ 实际上是某个实体对象的属性，而 prototype 则是属于构造函数的属性。_proto_只能在学习或调试的环境下使用。
+
+#### 原型模式的执行流程
+
+> 1. 先查找构造函数实例里的属性或方法，如果有，就立即返回。
+> 2. 如果构造函数的实例没有，就去它的原型对象里找，如果有，就立即返回。
 
 
+#### 总结
 
+> 构造函数 .prototype = 原型对象
 
+> 原型对象 .constructor = 构造函数(模板)
 
-
-
-
-
-
-
+> 原型对象 .isPrototypeof(实例对象) 判断实例对象的原型 是不是当前对象
 
 
