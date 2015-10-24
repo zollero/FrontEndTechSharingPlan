@@ -126,8 +126,123 @@ JS在创建对象（不论是普通对象还是函数对象）的时候，都有
 > [ QinWen._proto_  ==>  person.prototype  ==>  person.prototype._proto_  ==> Object.prototype  ==>  Object.prototype._proto_ ]
 
 
-
 ### 2. 为什么要有原型？
+
+在讲之前，先说下JavaScript作用域和作用域链。在JavaScript中，变量的作用域有全局作用域和局部作用域两种。
+
+#### 全局作用域（Global Scope）
+
+拥有全局作用域的变量和对象可以在代码的任何地方被访问到。一般来说，拥有全局作用局的情形有：
+##### 1. 最外层函数和在最外城函数外面定义的变量拥有全局作用域
+
+        var meetingDate = "20151001";
+        function doSomething() {
+            var meetingName = "sharingPlan";
+            function say() {
+                alert(meetingName);
+            }
+            say();
+        }
+        
+        alert(meetingDate);     //20151001
+        alert(meetingName);     //Uncaught ReferenceError: meetingName is not defined
+        doSomething();          //sharingPlan
+        say():                  //Uncaught ReferenceError: innerSay is not defined
+
+##### 2. 所有未定义直接赋值的变量自动声明为拥有全局作用域
+
+        function doSomething() {
+            var meetingName = "sharingPlan";
+            meetingDate = "20151001";
+            function say() {
+                alert(meetingName);
+            }
+            say();
+        }
+        
+        doSomething();          //sharingPlan
+        alert(meetingDate);     //20151001
+        alert(meetingName);     //Uncaught ReferenceError: meetingName is not defined
+
+变量 meetingDate拥有全局作用域，而 meetingName 在函数外部无法访问到。
+
+##### 3. 所有window对象的属性都拥有全局作用域
+
+一般情况下，window对象的内置属性都拥有全局作用域，如 window.name, window.loaction, window.top 等等。
+
+#### 局部作用域（Local Scope）
+
+和全局作用域相反，局部作用域一般只在固定的代码片段内科访问到，最常见的如函数内部。
+
+        function doSomething() {
+            var meetingName = "sharingPlan";
+            function say() {
+                alert(meetingName);
+            }
+            say();
+        }
+        alert(meetingName);     //Uncaught ReferenceError: meetingName is not defined
+        say();                  //Uncaught ReferenceError: innerSay is not defined
+
+该栗子中， meetingName 和 say() 都是只有局部作用域。
+
+#### 作用域链（Scope Chain）
+
+函数对象的作用域链是指：当函数被创建时，它能访问到的函数内部和函数外部的变量和对象的集合。包含函数内部定义的对象，和window, document，this 等一些拥有全局作用域的对象。
+
+当调用某个对象时，会从调用处，从作用域链的内部往外找，找到相同标识符的属性则返回，如果找到作用域链最外部
+
+
+#### 为什么要有prototype ？
+
+不适用原型时，我们这样定义一个对象。看下面这个栗子：
+
+        function Obj() {
+            this.a = [];    //实例变量
+            this.fn = function(){}      //实例方法
+        }
+        
+        console.log(typeof Obj.a);      //underfined
+        console.log(typeof Obj.fn);     //underfined
+        
+        var o = new Obj();
+        console.log(typeof o.a);        //object
+        console.log(typeof o.fn);       //function
+        
+        var o1 = new Obj();
+        o1.a.push(1);
+        o1.fn = {};
+        console.log(o1.a);              //[1]
+        console.log(typeof o1.fn);      //objection
+        
+        var o2 = new Obj();
+        console.log(o2.a);              //[]
+        console.log(typeof o2.fn);      //function
+
+>从上面的代码中可以看出，o1 修改了 a 和 fn，而o2 中没有改变。由于数组和函数都是引用类型：对象，即o1中的属性和方法与o2中的属性和方法
+>虽然同名但却不是一个引用，而是对Obj对象定义的属性和方法的一个复制。
+
+>> 这个对属性来说没什么问题，但是对于方法来说问题就大了，因为方法都是在做完全一样的功能，但是却复制了两份。
+如果一个函数对象有成百上千的实例方法，那么它的每个实例都要保持一份成百上千个方法的复制，这显然不科学。
+
+###### 于是，prototype 应运而生。
 
 
 ### 3. 原型是怎么运行的？
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
