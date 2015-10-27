@@ -202,22 +202,76 @@ shift() 删除数组的第一个元素并将其返回，然后把所有随后的
 
 ###### 注意：参数是一次性插入的，而非一次一个地插入。
 
+### ECMAScript 5中的数组方法
+
+##### 1. forEach()
+
+		var data = [1,2,3,4]
+
+		data.forEach(function(v, i, a){
+			console.log(a);
+		})
+		//匿名函数的三个参数分别为：数组元素、元素的索引值和数组本身
+
+##### 2. map()
+
+map() 将调用的数组的每个元素传递给指定的函数，并返回一个数组，它包含该函数的返回值。
+
+		var a = [1,2,3]
+		b = a.map(function(x){
+			return x * x;			//b = [1, 4, 9]
+		})
+
+###### 注意：传递给map()的函数必须有返回值。map()返回的是新数组，它不修改调用的数组。
+
+##### 3. fliter()
+
+fliter() 返回的数组元素是调用的数组的一个子集。传递的函数是用来逻辑判定的：该函数返回true或false。
+
+		var a = [1,2,3,4]
+		a.fliter(function(x){
+			return x > 3			//[4]
+		})
+
+如果想过滤掉数组中的 underfined 和 null ，可以这样使用fliter()：
+
+		a = a.fliter(function(x){
+			return x !== underfined && x !== null;
+		})
+
+##### 4. every() 和 some()
+
+every() 方法就像数学中的“针对所有”：当且仅当针对数组中的所有元素调用判定函数都返回true，它才返回true。
+
+		a = [1,2,3,4,5]
+		a.every(function(x){
+			return x < 10;			//true
+		})
+
+		a.every(function(x){
+			return x % 2 === 0; 	//false
+			})
 
 
+some() 就像数学中的“存在”：当数组中至少有一个元素调用判定函数返回true，它就返回true。且当且仅当数组中的所有元素调用判定函数都返回false，它才返回false。
+
+		a = [1,2,3,4,5]
+		a.some(function(x){
+			return x % 2 === 0;			//true
+			})
+
+		a.some(isNaN)					//false
 
 
+###### 注意：一旦every() 和 some() 确认该返回什么值，它们就会停止遍历数组元素。
 
+##### 5. indexOf() 和 laseIndexOf()
 
+indexOf() 和 laseIndexOf() 搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引或者如果没有找到就返回-1。
 
+indexOf() 从头至尾搜索，而lastIndexOf() 则反向搜索。
 
-
-
-
-
-
-
-
-
+这里不举例。
 
 
 
