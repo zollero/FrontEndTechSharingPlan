@@ -26,6 +26,30 @@ Javascript数组是Javascript对象的特殊形式，数组索引实际上和碰
 
 		var b = [[1, {x:1, y:2}], [2, {x:3, y: 4}]];
 
+如果省略数组直接量中的某个值，省略的元素将被赋予 underfined 值：
+
+		var count = [1, , 3];		//数组有3个元素，中间的那个元素值为 underfined
+		var undefs = [, ,];			//数组有2个元素，都是underfined
+
+#### 2. 构造函数创建
+
+* 调用时没有参数
+
+		var a = new Array();		//该发
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
