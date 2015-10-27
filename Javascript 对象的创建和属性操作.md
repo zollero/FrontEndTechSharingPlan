@@ -212,7 +212,7 @@ JavaScript内置了一些原始类型的构造函数.如:
 
         var len = o.x.length;   //抛出异常：underfined 没有 length 属性
 
-##### 避免出错的两张方法
+##### 避免出错的两种方法
 
         //No. 1 冗余但易懂的方法
         var len = underfined;
