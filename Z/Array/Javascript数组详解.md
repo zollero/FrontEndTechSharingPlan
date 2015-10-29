@@ -265,9 +265,9 @@ some() 就像数学中的“存在”：当数组中至少有一个元素调用�
 
 ###### 注意：一旦every() 和 some() 确认该返回什么值，它们就会停止遍历数组元素。
 
-##### 5. indexOf() 和 laseIndexOf()
+##### 5. indexOf() 和 lastIndexOf()
 
-indexOf() 和 laseIndexOf() 搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引或者如果没有找到就返回-1。
+indexOf() 和 lastIndexOf() 搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引或者如果没有找到就返回-1。
 
 indexOf() 从头至尾搜索，而lastIndexOf() 则反向搜索。
 
