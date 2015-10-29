@@ -109,21 +109,21 @@ JavaScript 中，万物皆对象！但对象也是有区别的。分为普通对
 
 ##### 原型链
 
-JS在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做_ proto _的内置属性，用于指向创建它的函数对象的原型对象prototype。以上面的例子
+JS在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做_ proto _的内置属性，该属性是阴性属性（只有在调试环境中使用），用于指向创建它的函数对象的原型对象prototype。以上面的例子
 
-    console.log(QinWen._proto_ === person.prototype) //true
+    QinWen._proto_ === person.prototype                 //true
 
 同样，person.prototype对象也有_proto_属性，它指向创建它的函数对象（Object）的prototype
 
-    console.log(person.prototype._proto_=== Object.prototype) //true
+    person.prototype._proto_=== Object.prototype        //true
 
 继续，Object.prototype对象也有_proto_属性，但它比较特殊，为null
 
-    console.log(Object.prototype._proto_) //null
+    Object.prototype._proto_                            //underfined
 
 这个由_proto_串起来的直到Object.prototype._proto_为null的链叫做原型链。即：
 
-> [ QinWen._proto_  ==>  person.prototype  ==>  person.prototype._proto_  ==> Object.prototype  ==>  Object.prototype._proto_ ]
+> ######[ QinWen._proto_  ==>  person.prototype  ==>  person.prototype._proto_  ==> Object.prototype  ==>  Object.prototype._proto_ ]
 
 
 ### 2. 为什么要有原型？
