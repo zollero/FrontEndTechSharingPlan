@@ -93,18 +93,130 @@
 ```
 
 + `<nav>`元素表示页面中导航链接的部分。HTML4中使用的`<ul>` 
-
+```
+	<nav>
+		<ul>
+			<li><a href="#">主页</a></li>
+			<li><a href="#">简介</a></li>
+		</ul>
+	</nav>
+```
 + `<aside>`元素表示article元素的内容之外的、与article元素的内容相关的辅助信息。HTML4中使用的`<div>`
-+ `<hgroup>`元素用于对整个页面或页面中一个内容区块的标题进行组合。HTML4中使用的`<div>`
+```
+	<article>
+		<h1>语法</h1>
+		<p>文章的正文。。。</p>
+		<aside>
+			<h1>名词解释</h1>
+			<p>......</p>
+		</aside>
+	</article>
+	<aside>
+		<nav>
+			<h2>评论</h2>
+			<ul>
+				<li><a href="#">20102023</a></li>
+				<li><a href="#">小明：。。。。</a></li>
+			</ul>
+		</nav>
+	</aside>
+```
 
 + `<figure>`元素表示一段独立的流内容，一般表示文档主体流内容中的一个独立单元。使用figcaption元素为figure元素组添加标题。
-+ `<header>`元素表示页面中一个内容区块或整个页面的标题。HTML4中使用的`<div>`
-+ `<footer>`元素表示整个页面或页面中一个内容区块的脚注。一般来说，它会包含创作者的姓名、创作日期以及创作者联系信息。HTML4中使用的`<div>`
+
+
 
 ##新增的非主题结构元素
 
 + `<header>`元素表示页面中一个内容区块或整个页面的标题。HTML4中使用的`<div>`
 + `<footer>`元素表示整个页面或页面中一个内容区块的脚注。一般来说，它会包含创作者的姓名、创作日期以及创作者联系信息。HTML4中使用的`<div>`
++ `<hgroup>`元素是将标题及其子标题进行分组的元素。hgroup元素通常会将h1~h6元素进行分组，譬如一个内容区块的标题及其子元素算一组。HTML4中使用的`<div>`
+```
+	<hgroup>
+		<h1>这是一个标题</h1>
+		<h2>这是一个子标题</h2>
+	</hgroup>
+``` 
++	`<address>`元素用来在文档中呈现联系信息，包含文档作者或文档维护者的名字、他们的网站链接、电子邮箱、真实地址、电话号码等。address应该不只用来呈现电子邮箱或真实地址，还用来展示跟文档相关的联系人的所有联系信息。
+
+#三、表单
+
+#四、HTML5的多媒体元素
+
+>为了解决使用插件才能播放视频和音频，html5新增了video和audio两个元素
+
+##audio元素
+
+使用```<audio>```标签来定义声音，```<source>```规定多媒体资源，播放格式与编码方式可以是多个以确保浏览器可以从中选择一种自己支持的播放格式进行播放，浏览器选择顺序为代码中的书写顺序。controls属性供添加播放、暂停和音量控件。
+
+```
+	<audio controls="controls">
+			<source src="http://demo/test.mp3">
+			<source src="http://demo/test.ogg">
+			您的浏览器不支持
+	</audio>
+```
+
+##video元素
+
+使用```<video>```标签来定义声音，其他和audio一样，只是可以设置长宽属性来展示视频的可视大小。
+```
+	<video controls="controls" width="500" height="300">
+			<source src="http://demo/test.mp4">
+			<source src="http://demo/test.ogg">
+			您的浏览器不支持
+	</video>
+```
+audio元素与video元素所具有的属性大致相同：
+###属性
++	src：在该属性中指定媒体数据的URL地址。
++	autoplay：在该属性中指定媒体是否在页面加载后自动播放。
+	
+```
+	<video src="sample".mov" autoplay></video>
+```
++	preload：在该属性中指定视频或音频数据是否预加载。如果使用预加载，浏览器会预先将视频或音频数据进行缓冲，这样可以加快播放的速度，因为播放时数据已经预先缓冲完毕。该属性有3个可选值：none（表示不进行预加载）、metadata（表示只预加载每天的元数据【媒体字节数、第一帧、播放列表、持续时间等】）与auto（表示预加载全部视频或音频），默认值是auto。
++	poster(video元素独有属性)：当视频不可用时，可以使用该元素向用户展示一幅替代用的图片。当视频可用时，最好使用该属性，以免展示视频的区域中出现一片空白。
+
+```
+	<video src="sample/mov" poster="1.jpg"></video>
+```
++	loop：在该属性中指定是否循环播放视频或音频。
++	controls：在该属性中指定是否为视频或音频添加浏览器自带的播放用的控制条。控制条中具有播放、暂停等按钮。
++	width和height（video元素独有属性）：在该属性中指定视频的宽度与高度（以像素为单位）。
++	currentTime属性、startTime属性与duration属性：可以使用video元素或audio元素的currentTime属性来读取媒体的当前播放位置，也可以通过修改currentTime属性来修改当前播放位置。
+
+	可以使用video元素或audio元素的startTime属性来读取媒体播放的开始时间，通常为0。
+
+	可以使用video元素或audio元素的duration属性来读取媒体文件总的播放时间。单位均为秒，currentTime为可读写属性，其余两个为只读属性。
++	play属性、paused属性、ended属性：可以使用video元素或audio元素的paly属性来返回一个TimeRange对象，从该对象中可以读取媒体文件的已播放部分的时间段。开始时间为已播放部分的开始时间，结束时间为已播放部分的结束时间。
+
+	可以使用video元素或audio元素的paused属性来返回一个布尔值，表示是否处于暂停播放中，true表示媒体暂停播放，false表示媒体正在播放。
+	
+	可以使用video元素或audio元素的ended属性来返回一个布尔值，表示是否播放完毕，true表示媒体播放完毕，false表示还没有播放完毕。
+三个均是只读属性。
++	defaultPlaybackRate属性和palybackRate属性：可以使用video元素或audio元素的defaultPlaybackRate属性读取或修改媒体默认的播放速率。
+	
+	可以使用video元素或audio元素的palybackRate属性读取或修改媒体当前的播放速率。
++	volume属性与muted属性：可以使用video元素或audio元素的volume属性读取或修改媒体的播放音量，范围为0到1,0为静音，1为最大音。
+
+	可以使用video元素或audio元素的muted属性读取或修改媒体的静音状态，该值为布尔值，true表示处于静音状态，false表示处于非静音状态。
+
+###方法
+
+video和audio元素都具有一下四中方法：
++	play方法：使用该方法来播放媒体，自动将元素的paused属性设为false。
++	pause方法：使用该方法来暂停播放，自动将元素的paused属性设为true。
++	load方法：使用该方法来重新载入媒体进行播放，自动将元素的playbackRate属性值变为defaultPlaybackRate属性的值，自动将元素的error的值变为null。
++	canPlayType方法：使用该方法用来测试浏览器是否支持指定的媒体类型。
+
+	该方法的定义方式：var support = videoElement.canPalyType(type);
+	
+	videoElement表示页面上的video元素或audio元素。type用播放文件的MIME类型来指定，可以在指定的字符串中加上表示媒体编码格式的codes参数。
+	
+	该方法返回3个可能值：1.	空字符串：表示浏览器不支持此种媒体类型。
+											 2. maybe：表示浏览器可能支持此种媒体类型。
+											 3. probably：表示浏览器确定支持此种媒体类型。
 
 
 
