@@ -204,7 +204,7 @@ audio元素与video元素所具有的属性大致相同：
 
 ###方法
 
-video和audio元素都具有一下四中方法：
+video和audio元素都具有以下四种方法：
 +	play方法：使用该方法来播放媒体，自动将元素的paused属性设为false。
 +	pause方法：使用该方法来暂停播放，自动将元素的paused属性设为true。
 +	load方法：使用该方法来重新载入媒体进行播放，自动将元素的playbackRate属性值变为defaultPlaybackRate属性的值，自动将元素的error的值变为null。
@@ -215,8 +215,18 @@ video和audio元素都具有一下四中方法：
 	videoElement表示页面上的video元素或audio元素。type用播放文件的MIME类型来指定，可以在指定的字符串中加上表示媒体编码格式的codes参数。
 	
 	该方法返回3个可能值：1.	空字符串：表示浏览器不支持此种媒体类型。
-											 2. maybe：表示浏览器可能支持此种媒体类型。
-											 3. probably：表示浏览器确定支持此种媒体类型。
+	
+			     						 2. maybe：表示浏览器可能支持此种媒体类型。
+			     
+			     						 3. probably：表示浏览器确定支持此种媒体类型。
+			     
+###事件
+
+>在利用video元素或audio元素读取或播放媒体数据的时候，会触发一系列的事件，用js捕捉这些事件就可以对这些事件进行处理。
+
+捕捉事件的方式：1.	监听的方式：videoElement.addEventListener(type,listener,useCapture);
+	
+										videoElement表示页面上的video元素或audio元素。type为事件名称，listener表示绑定的函数，useCapture是一个布尔值，表示该事件的响应顺序
 
 
 
