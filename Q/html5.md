@@ -226,7 +226,20 @@ video和audio元素都具有以下四种方法：
 
 捕捉事件的方式：1.	监听的方式：videoElement.addEventListener(type,listener,useCapture);
 	
-										videoElement表示页面上的video元素或audio元素。type为事件名称，listener表示绑定的函数，useCapture是一个布尔值，表示该事件的响应顺序
+										videoElement表示页面上的video元素或audio元素。type为事件名称，listener表示绑定的函数，useCapture是一个布尔值，表示该事件的响应顺序,该值如果为true，则浏览器采用capture响应方式（即捕获：由document向下传播至事件作用的元素），如果为false，浏览器采用bubbing响应方式（即冒泡：由事件作用的元素开始一直传播至document）。默认是false。
+										
+										```
+										video.addEventListener("error",function(){
+										.....
+										},false);
+										```
+								
+								2.JavaScript脚本中常见的获取事件句柄的方式：
+								
+								    ```
+								    <video id="video1" src="sample.mov" onplay="begin_playing();"></video>
+								    function begin_playing(){...}
+								    ```
 
 
 
