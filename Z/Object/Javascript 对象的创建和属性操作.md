@@ -89,7 +89,7 @@ JavaScript内置了一些原始类型的构造函数.如:
 
 ### 3. 原型模式
 
-原型模式很好的解决上马的封装性问题，默认情况下，每个对象和它的实例都共用一个原型。对象可以通过 .prototype 访问原型。
+原型模式很好的解决上面的封装性问题，默认情况下，每个对象和它的实例都共用一个原型。对象可以通过 .prototype 访问原型。
 
 上面的方法改用原型写时：
 
@@ -117,7 +117,7 @@ JavaScript内置了一些原始类型的构造函数.如:
         person1.sayHi();    //hi
         person2.sayHi();    //hi
 
-注意：当实例上存在与原型崇明的属性是，实例的属性会屏蔽掉原型的属性。因为要先查看实例中有无该属性，
+注意：当实例上存在与原型同名的属性时，实例的属性会屏蔽掉原型的属性。因为要先查看实例中有无该属性，
 没有找到才会去原型中查找。
 
 所以，对象可以重写原型，但此时已创建的实例依然指向旧原型。
@@ -202,7 +202,7 @@ JavaScript内置了一些原始类型的构造函数.如:
 
 #### 3. 属性访问错误
 
-属性访问并不一定放回或设置一个值。
+属性访问并不一定返回或设置一个值。
 
 查询一个不存在的属性并不会报错，如果在对象 o 自身的属性或继承的属性中均未找到属性 x ，属性访问表达式返回 underfined。
 
@@ -212,7 +212,7 @@ JavaScript内置了一些原始类型的构造函数.如:
 
         var len = o.x.length;   //抛出异常：underfined 没有 length 属性
 
-##### 避免出错的两张方法
+##### 避免出错的两种方法
 
         //No. 1 冗余但易懂的方法
         var len = underfined;
@@ -226,7 +226,7 @@ JavaScript内置了一些原始类型的构造函数.如:
 
 #### 4. 删除属性
 
-delete 运算符可以删除对象的属性。它的操作数应当是一个属性访问表达式。delete 只能删除自由属性，不能删除继承属性。要删除继承属性必须从定义这个属性的原型对象删除它，而且这会影响到所有继承自这个原型的对象。
+delete 运算符可以删除对象的属性。它的操作数应当是一个属性访问表达式。delete 只能删除自有属性，不能删除继承属性。要删除继承属性必须从定义这个属性的原型对象删除它，而且这会影响到所有继承自这个原型的对象。
 > 意外的是，delete只是断开属性和宿主对象的联系，而不会去操作属性中的属性。
 
         delete book.author;     //book不再有属性 author
@@ -263,17 +263,63 @@ delete 运算符可以删除对象的属性。它的操作数应当是一个属�
         delete this.x;      //正常工作
 
 
+#### 4. 检测属性
+
+检测对象中是否有某个属性的方法：
+
+##### 1. in 运算符
+
+in运算符左侧是属性名（字符串），右侧是对象。如果对象的自有属性或继承属性中包含这个属性则返回true：
+
+        var o = {x: 1};
+        "x" in o;       //true
+        "y" in o;       //false
+        "toString" in o;    //true，o继承toString属性
+
+##### 2. hasOwnProperty()
+
+对象的hasOwnProperty() 方法用来检测给点的名字是否是对象的自有属性。对应继承属性它将返回false：
+
+        var o = {x: 1};
+        o.hasOwnProperty("x");  //true
+        o.hasOwnProperty("y");  //false
+        o.hasOwnProperty("toString");   //false
+
+##### 3. propertyIsEnumerable()
+
+propertyIsEnumerable() 是hasOwnProperty()的增强版，只有检测到时自有属性且这个属性的可枚举性（enumerable attribute）为true时才返回true。
+
+        var o = inherit({y:2});
+        o.x = 1;
+        o.propertyIsEnumerable("x");    //true
+        o.propertyIsEnumerable("y");    //false
+
+##### 4. 使用!== "underfined"
+
+还有一个更简便的方法是使用 ”!==“判断一个属性是否是underfined。不管是自有属性还是继承属性，都返回true。
+
+        var o = {x:1};
+        o.x !== "underfined";       //true
+        o.y !== "underfined";       //false
+        o.toString !== "underfined";        //true
 
 
+和 in 运算符的区别：
+>  in 可以区分不存在的属性和存在但值为underfined的属性，而!==不能。如下：
+>>  var o = {x: underfined};
+
+>>  o.x !== "underfined";       //false：属性存在，但值为underfined
+
+>>  o.y !== "underfined";       //false：属性不存在
+
+>>  "x" in o        //true
+
+>>  "y" in o        //false
+
+>>  delete o.x        //删除属性x
+
+>>  "x" in o        //false：属性不再存在
 
 
-
-
-
-
-
-
-
-
-
+上述代码中使用的是 !== 运算符，而不是 != 。!== 可以区分 underfined 和 null。有时则不必作这种区分。
 
