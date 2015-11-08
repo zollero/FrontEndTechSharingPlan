@@ -2,7 +2,7 @@
 
 >canvas元素是HTML5新增的一个重要元素，专门用来绘制图形。canvas元素就是一块画布，只需要给它指定3个属性即可：id、width和height。在其中利用JavaScript进行绘画。
 
-###绘制矩形：
+##绘制矩形：
 
 1.  取得canvas元素
 
@@ -42,7 +42,7 @@
     	context.strokeRect(50,50,100,100);
 
 
-###使用路径   绘制圆形
+##使用路径   绘制圆形
 要想绘制其他图形，需要使用路径。
 
 步骤：
@@ -105,7 +105,7 @@ x为绘制圆形的起点横坐标，y为绘制圆形的起点纵坐标，radius
 复杂图形绘制的代码：
 
     <canvas id="canvasZone" width="400" height="300"></canvas>
-    
+
     var canvasZone = document.getElementById('canvasZone');
     var context2 = canvasZone.getContext("2d");
     context2.fillStyle = "#eaa8a8";
@@ -128,4 +128,68 @@ x为绘制圆形的起点横坐标，y为绘制圆形的起点纵坐标，radius
     context2.closePath();
     context2.fill();
     context2.stroke();
+    
 
+##使用bezierCurveTo绘制贝塞尔曲线
+
+方法：context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
+
+绘制贝塞尔曲线，需要两个控制点，cp1x为第一个控制点的横坐标，cp1y为第一个控制点的纵坐标；cp2x为第二个控制点的横坐标，cp2y为第二个控制点的纵坐标；x为贝塞尔曲线的终点横坐标，y为贝塞尔曲线的终点纵坐标。
+
+绘制曲线的代码：
+
+    <canvas id="drawingCanvas" width="1000" height="1000"></canvas>
+    var drawingCanvas = document.getElementById('drawingCanvas');
+    var context3 = drawingCanvas.getContext("2d");
+    context3.fillStyle = "#eeeeff";
+    context3.fillRect(0,0,1000,1000);
+    context3.moveTo(62,242);
+    context3.bezierCurveTo(187,32,429,480,365,133);
+    context3.stroke();
+
+补充：控制点本身并不包含在最终的曲线里，曲线的弯曲程度由控制点与起点和重点的距离决定。距离越远，弯曲度越大。
+
+![贝塞尔曲线](贝塞尔曲线1.png)
+
+##绘制变形图形
+
+#坐标变化
+
+>绘制图形的时候，我们经常会想到旋转图形，或者对图形使用变形处理，使用Canvas API的坐标轴变换处理功能，可以实现这种效果。
+>在计算机上绘制图形的时候，是以坐标单位为基准来进行图形绘制的。默认情况下，Canvas画布的最左上角对应于坐标轴原点（0,0）。之前所有利用Canvas API绘制出来的图形都是以画布的最左上角为坐标轴原点，并以一个像素为一个坐标单位来进行绘制的。
+
+如果对这个坐标使用变换处理，就可以实现图形的变形处理了。对坐标的变换处理，有以下三种方式：
+1. 平移：使用图形上下文对象的translate方法移动坐标轴原点。
+
+translate方法使用两个参数————x表示将坐标轴原点向左移动多少个单位，默认情况下为像素；y表示将坐标轴原点向下移动多少个单位。
+
+    context.translate(x,y)
+
+2. 扩大：使用图形上下文对象的scale方法将图形放大。
+
+scale方法使用两个参数————x表示水平方向的放大倍数，y是垂直方向的放大倍数。将图形缩小时，值为0-1之间的小数。
+
+    context.scale(x,y)
+
+3. 旋转：使用图形上下文对象的rotate方法将图形进行旋转。
+
+rotate方法的参数angle是指旋转的角度，旋转的中心点是坐标轴的原点。旋转是以顺时针方向进行的，如果想逆时针旋转时，将angle的值设为负数即可。
+
+    context.rotate(angle)
+
+案例代码：
+
+    <canvas id="drawingCanvas1" width="1000" height="1000"></canvas>
+    var drawingCanvas1 = document.getElementById('drawingCanvas1');
+    var context4 = drawingCanvas1.getContext("2d");
+    context4.fillStyle = "#eeeeff";
+    context4.fillRect(0,0,500,500);
+
+    context4.translate(200,50);
+    context4.fillStyle = "rgba(255,0,0,0.25)";
+    for(var u=0;u<50;u++){
+        context4.translate(25,25);
+        context4.scale(0.95,0.95);
+        context4.rotate(Math.PI / 10);
+        context4.fillRect(0,0,100,50);
+    }
