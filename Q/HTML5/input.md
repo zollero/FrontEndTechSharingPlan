@@ -124,50 +124,31 @@
 		<input type="submit" value="提交">
 	</form>
 
+3.min属性与max属性：min与max这两个属性是数值类型或日期类型的input元素的专用属性，他们限制了在input元素中输入的数值与日期的范围。
 
+4.step属性：step属性控制input元素中的值增加或减少时的步幅。
 
+5.checkValidity方法：调用该方法，可以显示地对表单内所有元素内容或单个元素内容进行有效性验证。返回true或false。
 
+	<form action="" id="testform"></form>
+	<label for="email">email</label>
+	<input type="email" id="email" name="email"><br>
+	<input type="submit" onclick="check()">
+	<script>
+	function check(){
+		var email = document.getElementById('email');
+		if(email.value == ''){
+			alert("请输入email地址");
+			return false;
+		}else if(!email.checkValidity()) {
+			alert("请输入正确的email地址");
+		}else{
+			alert("正确的email地址");
+		}
+	}
+	</script>
 
-
-标签的control属性：在HTML5中，可以再标签内部放置一个表单元素，并且通过该标签的control属性来访问该表单元素
-
-	<form action="">
-		<label id="label1">
-			邮编：
-			<input type="text" id="txt_zip" maxlength="6">
-			<small>请输入6位数字</small>
-		</label>
-		<input type="button" value="设置默认值" onclick="setValue()">
-	</form>
-	<br>
-
-
-	文本框的pattern属性：在HTML5中，对input元素使用pattern属性，并且将属性值设为某个格式的正则表达式，在提交时会针对这些进行检查，检查其内容是否符合给定格式。当输入的内容不符合给定格式时，则不允许提交，同时在浏览器中显示信息提示文字，提示输入的内容必须符合给定格式。
-	<form action="xxx.jsp">
-		请输入：
-		<input type="text" pattern="[A-Z]{3}" name="pattern">
-		<input type="submit" value="提交">
-	</form>
-	<br>
-
-	 文本框的SelectionDirection属性：这对input元素与textarea元素，HTML5增加了SelectionDirection属性。当用户在这两个元素中用鼠标选取部分文字时，可以使用该属性来获取选取方向。当用户正向选取文字时，改属性值为“forward”，当用户反向选取文字时，该属性值为“backward”。当用户没有选取任何文字时，该属性值为“forward”。 chorme不支持
-	<form action="">
-		<input type="text">
-		<input type="button" value="点击我" onclick="click()">
-	</form>
-	<br>
-
-	复选框的indeterminate属性：对于复选框checkbox元素来说，过去只是选取与非选取这两种状态。在HTML5中，可以再JavaScript脚本代码中对该元素使用indeterminate属性，以说明复选框处于“尚未明确是否选取”状态。
-	<input type="checkbox" indeterminate id="ck">
-	<br>
-
-	image提交按钮的height属性与width属性：针对类型为image的input元素，HTML5新增了两个属性，height、width分别用来指定图片按钮的高度和宽度
-	<form action="test.jsp" method="post">
-		姓名：<input type="text" name="name">
-		<input type="image" src="img/1.1.jpg" alt="编辑" width="50" height="50">
-	</form>
-	<br>		
-###增強的頁面元素
+##四、增強的頁面元素
 
 + figure元素以及figcaption元素 ：figure元素用來表示网页上独立、被主要内容引用的部分，可以用来定义插图注释、图标、照片和代码列表等，通常会配合figcaption元素定义其标题或者说明。figcaption元素从属于figure元素，一个figure元素中只能有一个figcaption元素
 ```
@@ -186,7 +167,7 @@
 	</details>
 ```
 
-+ mark元素
++ mark元素：表示页面中需要突出显示或高亮显示的内容
 ```
 	<p>这是一段<mark>文字</mark></p>
 ```
@@ -218,9 +199,6 @@
 ```
 
 +	cite元素表示作品的标题
-
-	dsmkfcjd
-
 ```			
 	<p>我最喜欢的电影是<cite>速度与激情</cite></p>
 ```
@@ -230,3 +208,17 @@
 	<small>版权</small>
 ```
 
++ ol的start属性和reversed属性：start属性定义编号的初始值，reversed属性对列表进行反向排序
+```
+	<ol start="3" reversed>
+		<li>列表1</li>
+		<li>列表2</li>
+		<li>列表3</li>
+		<li>列表4</li>
+		<li>列表5</li>
+	</ol>
+```
+
+##五、文件API
+
+##六、拖放API
