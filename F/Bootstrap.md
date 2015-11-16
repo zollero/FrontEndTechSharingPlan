@@ -233,8 +233,226 @@ font-style: normal;
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 <body>
-<p>我是普通文本，我的样子长成这样我是普通文本，我的样子长成这样我是普通文本，</p>
-<p class="lead">我是特意要突出的文本，我的样子成这样。我是特意要突出的文本，我的样子长成这样。</p>
+<p>我是普通文本，我不需要强调显示</p>
+<p class="lead">这部分内容需要特别的强调，我和别人长得不一样</p>
+</body>
+</html>
+```
+###粗体
+粗体就是给文本加粗，在普通的元素中我们一般通过font-weight设置为bold关键词给文本加粗。在Bootstrap中，可以使用`<b>`和`<strong>`标签让文本直接加粗。
+###斜体
+在排版中，除了用加粗来强调突出的文本之外，还可以使用斜体。斜体类似于加粗一样，除了可以给元素设置样式font-style值为italic实现之外，在Bootstrap中还可以通过使用标签`<em>`或`<i>`来实现。
+###强调相关的类
+在Bootstrap中除了使用标签`<strong>`、`<em>`等说明正文某些字词、句子的重要性，Bootstrap还定义了一套类名，这里称其为强调类名（类似前面说的“.lead”）,这些强调类都是通过颜色来表示强调，具本说明如下：
+
++   .text-muted：提示，使用浅灰色（#999）
++   .text-primary：主要，使用蓝色（#428bca）
++   .text-success：成功，使用浅绿色(#3c763d)
++   .text-info：通知信息，使用浅蓝色（#31708f）
++   .text-warning：警告，使用黄色（#8a6d3b）
++   .text-danger：危险，使用褐色（#a94442）
+举个例子
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>强调相关的类</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="text-muted">.text-muted 效果</div>
+<div class="text-primary">.text-primary效果</div>
+<div class="text-success">.text-success效果</div>
+<div class="text-info">.text-info效果</div>
+<div class="text-warning">.text-warning效果</div>
+<div class="text-danger">.text-danger效果</div>
+<!--下面是任务部分-->
+<p class="text-danger">我是一段危险信息，请用Bootstrap框架中的危险风格显示</p>
+</body>
+</html>
+```
+###文本对齐风格
+在排版中离不开文本的对齐方式。在CSS中常常使用text-align来实现文本的对齐风格的设置。其中主要有四种风格：
+
+  ☑  左对齐，取值left
+
+  ☑  居中对齐，取值center
+
+  ☑  右对齐，取值right
+
+  ☑  两端对齐，取值justify
+
+为了简化操作，方便使用，Bootstrap通过定义四个类名来控制文本的对齐风格：
+
+  ☑   .text-left：左对齐
+
+  ☑   .text-center：居中对齐
+
+  ☑   .text-right：右对齐
+
+  ☑   .text-justify：两端对齐
+  特别声明：目前两端对齐在各浏览器下解析各有不同，特别是应用于中文文本的时候。所以项目中慎用。
+  举个例子：
+  ```
+  <!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>文本对齐风格</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<p class="text-left">我居左</p>
+<p class="text-center">我居中</p>
+<p class="text-right">我居右</p>
+<p class="text-justify">There is clearly a need for CSS to be taken seriously by graphic artists. The Zen Garden aims to excite, inspire, and encourage participation. To begin, view some of the existing designs in the list. Clicking on any one will load the style sheet into this very page. The code remains the same, the only thing that has changed is the external .css file. </p>
+<!--下面是任务部分-->
+<p class="text-right">给我加个类，我就向右对齐。</p>
+
+
+</body>
+</html>
+  ```
+###列表--简介
+在HTML文档中，列表结构主要有三种：有序列表、无序列表和定义列表。具体使用的标签说明如下：
+无序列表
+```
+<ul>
+    <li>…</li>
+</ul>
+```
+有序列表
+```
+<ol>
+    <li>…</li>
+</ol>
+```
+定义列表
+```
+<dl>
+    <dt>…</dt>
+    <dd>…</dd>
+</dl>
+```
+Bootstrap根据平时的使用情形提供了六种形式的列表：
+
+   ☑  普通列表
+
+   ☑  有序列表
+
+   ☑  去点列表
+
+   ☑  内联列表
+
+   ☑  描述列表
+
+   ☑  水平描述列表
+   举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>列表--简介</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<ul>
+    <li>无序列表信息1</li>
+    <li>无序列表信息2</li>
+    <li>无序列表信息3</li>
+</ul>
+<ol>
+    <li>有序列表信息1</li>
+    <li>有序列表信息2</li>
+    <li>有序列表信息3</li>
+</ol>
+<dl>
+    <dt>定义列表标题</dt>
+    <dd>定义列表信息1</dd>
+    <dd>定义列表信息2</dd>
+</dl>
+</body>
+</html>
+```
+###列表--去点列表
+小伙伴们可以看到，在Bootstrap中默认情况下无序列表和有序列表是带有项目符号的，但在实际工作中很多时候，我们的列表是不需要这个编号的，比如说用无序列表做导航的时候。Bootstrap为众多开发者考虑的非常周道，通过给无序列表添加一个类名“.list-unstyled”,这样就可以去除默认的列表样式的风格。
+
+.list-unstyled {
+padding-left: 0;
+list-style: none;
+}
+从示例中可以看出，除了项目编号之外，还将列表默认的左边内距也清０了。
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>去点列表</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<ul class="list-unstyled">
+    <li>无序列表1</li>
+    <li>无序列表2</li>
+    <li>无序列表3</li>
+</ul>
+<ol class="list-unstyled">
+    <li>有序列表1</li>
+    <li>有序列表2</li>
+    <li>有序列表3</li>
+</ol>
+</body>
+</html>
+```
+###列表--内联列表
+Bootstrap像去点列表一样，通过添加类名“.list-inline”来实现内联列表，简单点说就是把垂直列表换成水平列表，而且去掉项目符号（编号），保持水平显示。也可以说内联列表就是为制作水平导航而生。
+源码：
+```
+.list-inline {
+padding-left: 0;
+margin-left: -5px;
+list-style: none;
+}
+.list-inline > li {
+display: inline-block;
+padding-right: 5px;
+padding-left: 5px;
+}
+```
+举个例子
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>内联列表</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<ul class="list-inline">
+    <li>W3cplus</li>
+    <li>Blog</li>
+    <li>CSS3</li>
+    <li>jQuery</li>
+    <li>PHP</li>
+</ul>
+<!--下面是代码任务部分-->
+<p>城市：</p>
+<ul class="list-inline">
+    <li>北京</li>
+    <li>上海</li>
+    <li>南京</li>
+    <li>厦门</li>
+</ul>
+
 </body>
 </html>
 ```
