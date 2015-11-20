@@ -456,3 +456,76 @@ padding-left: 5px;
 </body>
 </html>
 ```
+###列表--水平定义列表
+水平定义列表就像内联列表一样，Bootstrap可以给`<dl>`添加类名“.dl-horizontal”给定义列表实现水平显示效果。
+```
+@media (min-width: 768px) {
+.dl-horizontal dt {
+float: left;
+width: 160px;
+overflow: hidden;
+clear: left;
+text-align: right;
+text-overflow: ellipsis;
+white-space: nowrap;
+  }
+.dl-horizontal dd {
+margin-left: 180px;
+  }
+}
+```
+此处添加了一个媒体查询。也就是说，只有屏幕大于768px的时候，添加类名“.dl-horizontal”才具有水平定义列表效果。其实现主要方式：
+1、将dt设置了一个左浮动，并且设置了一个宽度为160px
+2、将dd设置一个margin-left的值为180px，达到水平的效果
+3、当标题宽度超过160px时，将会显示三个省略号
+其用法如下：
+```
+<dl class="dl-horizontal">
+    <dt>W3cplus</dt>
+    <dd>一个致力于推广国内前端行业的技术博客。它以探索为己任，不断活跃在行业技术最前沿，努力提供高质量前端技术博文</dd>
+    <dt>慕课网</dt>
+    <dd>一个专业的，真心实意在做培训的网站</dd>
+    <dt>我来测试一个标题，我来测试一个标题</dt>
+    <dd>我在写一个水平定义列表的效果，我在写一个水平定义列表的效果</dd>
+</dl>
+```
+宽屏下的效果（屏幕大于768px）：
+![Alt text](http://img.mukewang.com/53ad0ff90001418208740117.jpg)
+当你缩小你的浏览器屏幕时，水平定义列表将回复到原始的状态。
+![Alt text](http://img.mukewang.com/53ad10270001db6f06200172.jpg)
+###代码（一）
+在Bootstrap主要提供了三种代码风格：
+1、使用`<code></code>`来显示单行内联代码
+2、使用`<pre></pre>`来显示多行块代码
+3、使用`<kbd></kbd>`来显示用户输入代码
+在使用代码时，用户可以根据具体的需求来使用不同的类型：
+1、`<code>`：一般是针对于单个单词或单个句子的代码
+2、`<pre>`：一般是针对于多行代码（也就是成块的代码）
+3、`<kbd>`:一般是表示用户要通过键盘输入的内容
+
+虽然不同的类型风格不一样，但其使用方法是类似的。
+code风格：
+```
+<div>Bootstrap的代码风格有三种：
+  <code>&lt;code&gt;</code>
+  <code>&lt;pre&gt;</code>
+  <code>&lt;kbd&gt;</code>
+</div>
+```
+pre风格：
+```
+<div>
+<pre>
+&lt;ul&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+```
+kbd风格：
+```
+<div>请输入<kbd>ctrl+c</kbd>来复制代码，然后使用<kbd>ctrl+v</kbd>来粘贴代码</div>
+```
+不管使用哪种代码风格，在代码中碰到小于号（<）要使用硬编码`“&lt;”`来替代，大于号(>)使用`“&gt;”`来替代。而且对于`<pre>`代码块风格，标签前面留多少个空格，在显示效果中就会留多少个空格。建议在编写HTML标签时，就控制好。
