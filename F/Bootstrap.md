@@ -529,3 +529,603 @@ kbd风格：
 <div>请输入<kbd>ctrl+c</kbd>来复制代码，然后使用<kbd>ctrl+v</kbd>来粘贴代码</div>
 ```
 不管使用哪种代码风格，在代码中碰到小于号（<）要使用硬编码`“&lt;”`来替代，大于号(>)使用`“&gt;”`来替代。而且对于`<pre>`代码块风格，标签前面留多少个空格，在显示效果中就会留多少个空格。建议在编写HTML标签时，就控制好。
+###代码（二）
+正如前面所示，`<pre>`元素一般用于显示大块的代码，并保证原有格式不变。但有时候代码太多，而且不想让其占有太大的页面篇幅，就想控制代码块的大小。Bootstrap也考虑到这一点，你只需要在pre标签上添加类名“.pre-scrollable”，就可以控制代码块区域最大高度为340px，一旦超出这个高度，就会在Y轴出现滚动条。
+源码如下：
+```
+.pre-scrollable {
+max-height: 340px;
+overflow-y: scroll;
+}
+```
+举个例子：
+```
+<body>
+高度超出340px，就会在Y轴出现滚动条
+<!--下面是代码任务部分-->
+<pre class="pre-scrollable">
+<ol>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+    <li>....</li>
+</ol>
+</pre>
+</body>
+```
+##表格
+表格是Bootstrap的一个基础组件之一，Bootstrap为表格提供了1种基础样式和4种附加样式以及1个支持响应式的表格。在使用Bootstrap的表格过程中，只需要添加对应的类名就可以得到不同的表格风格，在接下来的内容中，我们会详细介绍Bootstrap的表格使用。
+
+刚已经说了，Bootstrap为表格不同的样式风格提供了不同的类名，主要包括：
+
+  ☑  .table：基础表格
+
+  ☑  .table-striped：斑马线表格
+
+  ☑  .table-bordered：带边框的表格
+
+  ☑  .table-hover：鼠标悬停高亮的表格
+
+  ☑  .table-condensed：紧凑型表格
+
+  ☑  .table-responsive：响应式表格
+  举个例子：
+  ```
+  <!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>基础表格</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<h1>基础表格</h1>
+<table class="table">
+   <thead>
+     <tr>
+       <th>表格标题</th>
+       <th>表格标题</th>
+       <th>表格标题</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+   </tbody>
+ </table>
+<h1>斑马线表格</h1>
+<table class="table table-striped">
+   <thead>
+     <tr>
+       <th>表格标题</th>
+       <th>表格标题</th>
+       <th>表格标题</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+   </tbody>
+ </table>
+<h1>带边框的表格</h1>
+ <table class="table table-bordered">
+   <thead>
+     <tr>
+       <th>表格标题</th>
+       <th>表格标题</th>
+       <th>表格标题</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+   </tbody>
+ </table>
+<h1>鼠标悬浮高亮的表格</h1>
+<table class="table table-striped table-bordered table-hover">
+   <thead>
+     <tr>
+       <th>表格标题</th>
+       <th>表格标题</th>
+       <th>表格标题</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+   </tbody>
+ </table>
+ <h1>紧凑型表格</h1>
+  <table class="table table-condensed">
+   <thead>
+     <tr>
+       <th>表格标题</th>
+       <th>表格标题</th>
+       <th>表格标题</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+   </tbody>
+ </table>
+ <h1>响应式表格</h1>
+ <div class="table-responsive">
+   <table class="table table-bordered">
+   <thead>
+     <tr>
+       <th>表格标题</th>
+       <th>表格标题</th>
+       <th>表格标题</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+     <tr>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+       <td>表格单元格</td>
+     </tr>
+   </tbody>
+ </table>
+</div>
+</body>
+</html>
+```
+###表格--表格行的类
+Bootstrap还为表格的行元素`<tr>`提供了五种不同的类名，每种类名控制了行的不同背景颜色，具体说明如下表所示：
+![Alt text](http://img.mukewang.com/53ad213f0001b08807340508.jpg)
+其使用非常的简单，只需要在`<tr>`元素中添加上表对应的类名，就能达到你自己需要的效果：
+```
+<tr class="active">
+    <td>…</td>
+</tr>
+```
+特别提示：除了”.active”之外，其他四个类名和”.table-hover”配合使用时，Bootstrap针对这几种样式也做了相应的悬浮状态的样式设置，所以如果需要给tr元素添加其他颜色样式时，在”.table-hover”表格中也要做相应的调整。
+
+注意要实现悬浮状态，需要在`<table>`标签上加入table-hover类。
+
+如下代码：
+```
+<table class="table-hover">
+```
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>表格行的类</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>类名</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="active">
+      <td>.active</td>
+      <td>表示当前活动的信息</td>
+    </tr>
+    <tr class="success">
+      <td>.success</td>
+      <td>表示成功或者正确的行为</td>
+    </tr>
+    <tr class="info">
+      <td>.info</td>
+      <td>表示中立的信息或行为</td>
+    </tr>
+    <tr class="warning">
+      <td>.warning</td>
+      <td>表示警告，需要特别注意</td>
+    </tr>
+    <tr class="danger">
+      <td>.danger</td>
+      <td>表示危险或者可能是错误的行为</td>
+    </tr>
+  </tbody>
+</table> 
+</body>
+</html>
+```
+###表格--基础表格
+大家对表格并不太陌生，但对于Bootstrap中的表格如何使用，或许还有点陌生，接下来的内容，将根据不同的表格类型向大家介绍Bootstrap表格的实际使用方法。
+对表格的结构，跟我们平时使用表格是一样的：
+```
+<table>
+<thead>
+<tr>
+<th>表格标题</th>
+…
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>表格单元格</td>
+…
+</tr>
+     …
+</tbody>
+</table>
+```
+如无特别声明，下面介绍表格类型的时候，结构都是类似上面的代码。
+基础表格
+在Bootstrap中，对于基础表格是通过类名“.table”来控制。如果在`<table>`元素中不添加任何类名，表格是无任何样式效果的。想得到基础表格，我们只需要在`<table>`元素上添加“.table”类名，就可以得到Bootstrap的基础表格：
+```
+<table class="table">
+…
+</table>
+```
+Bootstrap的基础表格，大致长得像下图所示的样子：
+![Alt text](http://img.mukewang.com/53c617ea0001a48108560141.jpg)
+“.table”主要有三个作用：
+
+  ☑  给表格设置了margin-bottom:20px以及设置单元内距
+
+  ☑  在thead底部设置了一个2px的浅灰实线
+
+  ☑  每个单元格顶部设置了一个1px的浅灰实线
+###表格--斑马线表格
+有时候为了让表格更具阅读性，需要将表格制作成类似于斑马线的效果。简单点说就是让表格带有背景条纹效果。在Bootstrap中实现这种表格效果并不困难，只需要在`<table class="table">`的基础上增加类名“.table-striped”即可：
+```
+<table class="table table-striped">
+…
+</table>
+```
+其效果与基础表格相比，仅是在tbody隔行有一个浅灰色的背景色。其实现原理也非常的简单，利用CSS3的结构性选择器“:nth-child”来实现，所以对于IE8以及其以下浏览器，没有背景条纹效果。
+效果如下所示：
+![Alt text](http://img.mukewang.com/53c61d630001779e08680204.jpg)
+###表格--带边框的表格
+基础表格仅让表格部分地方有边框，但有时候需要整个表格具有边框效果。Bootstrap出于实际运用，也考虑这种表格效果，即所有单元格具有一条1px的边框。
+Bootstrap中带边框的表格使用方法和斑马线表格的使用方法类似，只需要在基础表格`<table class="table">`基础上添加一个“.table-bordered”类名即可：
+```
+<table  class="table table-bordered">
+  …
+</table>
+```
+样式如下图所示：
+![Alt text](http://img.mukewang.com/53c6218300019ab105870211.jpg)
+###表格--鼠标悬浮高亮的表格
+当鼠标悬停在表格的行上面有一个高亮的背景色，这样的表格让人看起来就是舒服，时刻告诉用户正在阅读表格哪一行的数据。Bootstrap的确没有让你失望，他也考虑到这种效果，其提供了一个“.table-hover”类名来实现这种表格效果。
+鼠标悬停高亮的表格使用也简单，仅需要`<table class="table">`元素上添加类名“table-hover”即可：
+```
+<table class="table table-hover">
+…
+</table>
+```
+效果图如下：
+![Alt text](http://img.mukewang.com/53c6224a0001ec1608570206.jpg)
+从效果图中可以看出，当你鼠标悬浮在某一单元格上时，单元格所在行的背景色都会变成浅灰色。
+
+鼠标悬浮高亮的效果主要是通过“hover”事件来实现，设置了“tr:hover”时的th、td的背景色为新颜色。
+源码如下：
+```
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+background-color: #f5f5f5;
+}
+```
+注：其实，鼠标悬浮高亮表格，可以和Bootstrap其他表格混合使用。简单点说，只要你想让你的表格具备悬浮高亮效果，你只要给这个表格添加“table-hover”类名就好了。例如，将前面介绍的几种表格结合使用：
+```
+<table class="table table-striped table-bordered table-hover">
+…
+</table>
+```
+###表格--紧凑型表格
+何谓紧凑型表格，简单理解，就是单元格没内距或者内距较其他表格的内距更小。换句话说，要实现紧凑型表格只需要重置表格单元格的内距padding的值。那么在Bootstrap中，通过类名“table-condensed”重置了单元格内距值。
+紧凑型表格的运用，也只是需要在`<table class="table">`基础上添加类名“table-condensed”：
+```
+<table class="table table-condensed">
+…
+</table>
+```
+效果图如下：
+![Alt text](http://img.mukewang.com/53c62647000158e708620159.jpg)
+从上面效果图可以看出，Bootstrap中紧凑型的表格与基础表格差别不大，因为只是将单元格的内距由8px调至5px。
+
+源码请看:
+```
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+padding: 5px;
+}
+```
+正如上一小节中悬浮高亮表格中所讲解的，在Bootstrap中制作表格中，可以将上面几种表格样式结合在一起使用，从而制作出更为精美的表格。结合的方法也很简单，就是在`<table class="table">`基础上添加你需要的表格样式类型。
+
+另外从上面的示例中大家可能也发现了，不管制作哪种表格都离不开类名“table”。所以大家在使用Bootstrap表格时，千万注意，你的`<table>`元素中一定不能缺少类名“table”。
+###表格--响应式表格
+随着各种手持设备的出现，要想让你的Web页面适合千罗万像的设备浏览，响应式设计的呼声越来越高。在Bootstrap中也为表格提供了响应式的效果，将其称为响应式表格。
+Bootstrap提供了一个容器，并且此容器设置类名“.table-responsive”,此容器就具有响应式效果，然后将`<table class="table">`置于这个容器当中，这样表格也就具有响应式效果。
+Bootstrap中响应式表格效果表现为：当你的浏览器可视区域小于768px时，表格底部会出现水平滚动条。当你的浏览器可视区域大于768px时，表格底部水平滚动条就会消失。示例如下：
+```
+<div class="table-responsive">
+<table class="table table-bordered">
+   …
+</table>
+</div>
+```
+运行效果如下：
+宽屏效果![Alt text](http://img.mukewang.com/53ad2eab0001c55105540130.jpg)
+窄屏效果![Alt text](http://img.mukewang.com/53ad2f540001847402420197.jpg)
+##基础表单
+表单主要功能是用来与用户做交流的一个网页控件，良好的表单设计能够让网页与用户更好的沟通。表单中常见的元素主要包括：文本输入框、下拉选择框、单选按钮、复选按钮、文本域和按钮等。其中每个控件所起的作用都各不相同，而且不同的浏览器对表单控件渲染的风格都各有不同。
+
+同样，表单也是Bootstrap框架中的核心内容，下面向大家介绍Bootstrap框架中表单的制作。
+对于基础表单，Bootstrap并未对其做太多的定制性效果设计，仅仅对表单内的fieldset、legend、label标签进行了定制。如：
+```
+fieldset {
+min-width: 0;
+padding: 0;
+margin: 0;
+border: 0;
+}
+legend {
+display: block;
+width: 100%;
+padding: 0;
+margin-bottom: 20px;
+font-size: 21px;
+line-height: inherit;
+color: #333;
+border: 0;
+border-bottom: 1px solid #e5e5e5;
+}
+
+label {
+display: inline-block;
+margin-bottom: 5px;
+font-weight: bold;
+}
+```
+主要将这些元素的margin、padding和border等进行了细化设置。
+
+当然表单除了这几个元素之外，还有input、select、textarea等元素，在Bootstrap框架中，通过定制了一个类名`form-control`，也就是说，如果这几个元素使用了类名“form-control”，将会实现一些设计上的定制效果。
+
+1、宽度变成了100%
+
+2、设置了一个浅灰色（#ccc）的边框
+
+3、具有4px的圆角
+
+4、设置阴影效果，并且元素得到焦点之时，阴影和边框效果会有所变化
+
+5、设置了placeholder的颜色为#999
+举个例子：
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>基础表单</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<form role="form">
+  <div class="form-group">
+    <label for="exampleInputEmail1">邮箱：</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入您的邮箱地址">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">密码</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入您的邮箱密码">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> 记住密码
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">进入邮箱</button>
+</form>	
+</body>
+</html>
+```
+###水平表单
+Bootstrap框架默认的表单是垂直显示风格，但很多时候我们需要的水平表单风格（标签居左，表单控件居右）见下图。
+![Alt text](http://img.mukewang.com/53d07cb5000111c403540091.jpg)
+在Bootstrap框架中要实现水平表单效果，必须满足以下两个条件：
+1、在`<form>`元素是使用类名“form-horizontal”。
+2、配合Bootstrap框架的网格系统。（网格布局会在以后的章节中详细讲解）
+
+在`<form>`元素上使用类名“form-horizontal”主要有以下几个作用：
+1、设置表单控件padding和margin值。
+2、改变“form-group”的表现形式，类似于网格系统的“row”。
+举个例子：
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>水平表单</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="请输入您的邮箱地址">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="请输入您的邮箱密码">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> 记住密码
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">进入邮箱</button>
+    </div>
+  </div>
+</form>
+</body>
+</html>
+```
+###内联表单
+有时候我们需要将表单的控件都在一行内显示，类似这样的：
+![Alt text](http://img.mukewang.com/53b2532a000107b003190032.jpg)
+在Bootstrap框架中实现这样的表单效果是轻而易举的，你只需要在`<form>`元素中添加类名“form-inline”即可。
+内联表单实现原理非常简单，欲将表单控件在一行显示，就需要将表单控件设置成内联块元素（display:inline-block）。
+如果你要在input前面添加一个label标签时，会导致input换行显示。如果你必须添加这样的一个label标签，并且不想让input换行，你需要将label标签也放在容器“form-group”中，如：
+```
+<div class="form-group">
+    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+</div>
+<div class="form-group">
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+</div>
+```
+接下来，我们还是以实例说话：
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>内联表单</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<form class="form-inline" role="form">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail2">邮箱</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="请输入你的邮箱地址">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputPassword2">密码</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="请输入你的邮箱密码">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> 记住密码
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">进入邮箱</button>
+</form>  
+</body>
+</html>
+```
+回过头来看示例，你或许会问，为什么添加了label标签，而且没有放置在”form-group”这样的容器中，input也不会换行；还有label标签怎么没显示出来。如果你仔细看，在label标签运用了一个类名“sr-only”，标签没显示就是这个样式将标签隐藏了。
+注意：那么Bootstrap为什么要这么做呢？这样不是多此一举吗？其实不是的，如果没有为输入控件设置label标签，屏幕阅读器将无法正确识别。这也是Bootstrap框架另一个优点之处，为残障人员进行了一定的考虑。
