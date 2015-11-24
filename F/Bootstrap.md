@@ -1129,3 +1129,244 @@ Bootstrap框架默认的表单是垂直显示风格，但很多时候我们需�
 ```
 回过头来看示例，你或许会问，为什么添加了label标签，而且没有放置在”form-group”这样的容器中，input也不会换行；还有label标签怎么没显示出来。如果你仔细看，在label标签运用了一个类名“sr-only”，标签没显示就是这个样式将标签隐藏了。
 注意：那么Bootstrap为什么要这么做呢？这样不是多此一举吗？其实不是的，如果没有为输入控件设置label标签，屏幕阅读器将无法正确识别。这也是Bootstrap框架另一个优点之处，为残障人员进行了一定的考虑。
+###表单控件(输入框input)
+每一个表单都是由表单控件组成。离开了控件，表单就失去了意义。接下来的我们简单的来了解Bootstrap框架中表单控件的相关知识。
+
+单行输入框，常见的文本输入框，也就是input的type属性值为text。在Bootstrap中使用input时也必须添加type类型，如果没有指定type类型，将无法得到正确的样式，因为Bootstrap框架都是通过input[type=“?”](其中?号代表type类型，比如说text类型，对应的是input[type=“text”])的形式来定义样式的。
+
+为了让控件在各种表单风格中样式不出错，需要添加类名“form-control”，如：
+```
+<form role="form">
+<div class="form-group">
+<input type="email" class="form-control" placeholder="Enter email">
+</div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b2571700018ab503070043.jpg)
+###表单控件(下拉选择框select)
+Bootstrap框架中的下拉选择框使用和原始的一致，多行选择设置multiple属性的值为multiple。Bootstrap框架会为这些元素提供统一的样式风格。如：
+```
+<form role="form">
+<div class="form-group">
+  <select class="form-control">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+  </select>
+  </div>
+  <div class="form-group">
+  <select multiple class="form-control">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+  </select>
+</div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b257ea000136bd02570072.jpg)
+###表单控件(文本域textarea)
+文本域和原始使用方法一样，设置rows可定义其高度，设置cols可以设置其宽度。但如果textarea元素中添加了类名“form-control”类名，则无需设置cols属性。因为Bootstrap框架中的“form-control”样式的表单控件宽度为100%或auto。
+```
+<form role="form">
+  <div class="form-group">
+    <textarea class="form-control" rows="3"></textarea>
+  </div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b25d4d0001dbb503010055.jpg)
+###表单控件(复选框checkbox和单选择按钮radio)
+Bootstrap框架中checkbox和radio有点特殊，Bootstrap针对他们做了一些特殊化处理，主要是checkbox和radio与label标签配合使用会出现一些小问题（最头痛的是对齐问题）。使用Bootstrap框架，开发人员无需考虑太多，只需要按照下面的方法使用即可。
+```
+<form role="form">
+<div class="checkbox">
+<label>
+<input type="checkbox" value="">
+记住密码
+</label>
+</div>
+<div class="radio">
+<label>
+<input type="radio" name="optionsRadios" id="optionsRadios1" value="love" checked>
+喜欢
+</label>
+</div>
+<div class="radio">
+<label>
+<input type="radio" name="optionsRadios" id="optionsRadios2" value="hate">
+不喜欢
+</label>
+</div>
+</form>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53b25edb0001faae02520102.jpg)
+从上面的示例，我们可以得知：
+1、不管是checkbox还是radio都使用label包起来了
+2、checkbox连同label标签放置在一个名为“.checkbox”的容器内
+3、radio连同label标签放置在一个名为“.radio”的容器内
+在Bootstrap框架中，主要借助“.checkbox”和“.radio”样式，来处理复选框、单选按钮与标签的对齐方式。
+###表单控件(复选框和单选按钮水平排列)
+有时候，为了布局的需要，将复选框和单选按钮需要水平排列。Bootstrap框架也做了这方面的考虑：
+1、如果checkbox需要水平排列，只需要在label标签上添加类名“checkbox-inline”
+2、如果radio需要水平排列，只需要在label标签上添加类名“radio-inline”
+如下所示：
+```
+<form role="form">
+  <div class="form-group">
+    <label class="checkbox-inline">
+      <input type="checkbox"  value="option1">游戏
+    </label>
+    <label class="checkbox-inline">
+      <input type="checkbox"  value="option2">摄影
+    </label>
+    <label class="checkbox-inline">
+    <input type="checkbox"  value="option3">旅游
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="radio-inline">
+      <input type="radio"  value="option1" name="sex">男性
+    </label>
+    <label class="radio-inline">
+      <input type="radio"  value="option2" name="sex">女性
+    </label>
+    <label class="radio-inline">
+      <input type="radio"  value="option3" name="sex">中性
+    </label>
+  </div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b2649f00011bae01920069.jpg)
+###表单控件(按钮)
+按钮也是表单重要控件之一,制作按钮通常使用下面代码来实现：
+
+  ☑  input[type=“submit”]
+
+  ☑  input[type=“button”]
+
+  ☑  input[type=“reset”]
+
+  ☑  <button>
+
+在Bootstrap框架中的按钮都是采用`<button>`来实现。
+
+有关于Bootstrap中按钮如何制作，在这里不做过多阐述，因为按钮也是Bootstrap框架中核心部分之一，后面我们专门有一节内容来介绍Bootstrap的按钮。
+
+这里先让大家看看Bootstrap的按钮长成什么样：
+![Alt text](http://img.mukewang.com/53b266f800010e4703160035.jpg)
+举个例子：
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单控件状态——焦点状态</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<table class="table table-bordered table-striped">  
+    <thead>  
+      <tr>  
+        <th>Button</th>  
+        <th>class=""</th>  
+        <th>Description</th>  
+      </tr>  
+    </thead>  
+    <tbody>  
+      <tr>  
+        <td><button class="btn" href="#">Default</button></td>  
+        <td><code>btn</code></td>  
+        <td>Standard gray button with gradient</td>  
+      </tr>  
+      <tr>  
+        <td><button class="btn btn-primary" href="#">Primary</button></td>  
+        <td><code>btn btn-primary</code></td>  
+        <td>Provides extra visual weight and identifies the primary action in a set of buttons</td>  
+      </tr>  
+      <tr>  
+        <td><button class="btn btn-info" href="#">Info</button></td>  
+        <td><code>btn btn-info</code></td>  
+        <td>Used as an alternative to the default styles</td>  
+      </tr>  
+      <tr>  
+        <td><button class="btn btn-success" href="#">Success</button></td>  
+        <td><code>btn btn-success</code></td>  
+        <td>Indicates a successful or positive action</td>  
+      </tr>  
+      <tr>  
+        <td><button class="btn btn-warning" href="#">Warning</button></td>  
+        <td><code>btn btn-warning</code></td>  
+        <td>Indicates caution should be taken with this action</td>  
+      </tr>  
+      <tr>  
+        <td><button class="btn btn-danger" href="#">Danger</button></td>  
+        <td><code>btn btn-danger</code></td>  
+        <td>Indicates a dangerous or potentially negative action</td>  
+      </tr>  
+      <tr>  
+        <td><button class="btn btn-inverse" href="#">Inverse</button></td>  
+        <td><code>btn btn-inverse</code></td>  
+        <td>Alternate dark gray button, not tied to a semantic action or use</td>  
+      </tr>  
+    </tbody>  
+  </table>    
+</body>
+</html>
+```
+###表单控件大小
+前面看到的表单控件都正常的大小。可以通过设置控件的height，line-height，padding和font-size等属性来实现控件的高度设置。不过Bootstrap框架还提供了两个不同的类名，用来控制表单控件的高度。这两个类名是：
+1、input-sm:让控件比正常大小更小
+2、input-lg:让控件比正常大小更大
+
+这两个类适用于表单中的input，textarea和select控件，具体使用如下：
+```
+<input class="form-control input-lg" type="text" placeholder="添加.input-lg，控件变大">
+<input class="form-control" type="text" placeholder="正常大小">
+<input class="form-control input-sm" type="text" placeholder="添加.input-sm，控件变小">
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b269860001e43f02260101.jpg)
+不管是“input-sm”还是“input-lg”仅对控件高度做了处理。但往往很多时候，我们需要控件宽度也要做一定的变化处理。这个时候就要借住Bootstrap框架的网格系统。所以你要控制表单宽度，可以像下面这样使用：
+```
+<form role="form" class="form-horizontal">
+  <div class="form-group">
+  <div class="col-xs-4">
+    <input class="form-control input-lg" type="text" placeholder=".col-xs-4">
+  </div>
+  <div class="col-xs-4">
+    <input class="form-control input-lg" type="text" placeholder=".col-xs-4">
+  </div>
+  <div class="col-xs-4">
+    <input class="form-control input-lg" type="text" placeholder=".col-xs-4">
+  </div>
+  </div>
+    …
+</form>
+```
+注：网格布局在后面章节中会进行详细讲解。
+
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b26a6a00018cba02420078.jpg)
+前面介绍水平表单时说过，如果表单使用了类名“form-horizontal”，其中“form-group”就相当于网格系统中的“row”。换句话说，如果没有这样做，要通过网格系统来控制表单控件宽度，就需要这样使用：
+```
+<div class="row">
+<div class="col-xs-4">
+<input class="form-control input-lg" type="text" placeholder=".col-xs-4">
+</div>
+<div class="col-xs-4">
+<input class="form-control input-lg" type="text" placeholder=".col-xs-4">
+</div>
+<div class="col-xs-4">
+<input class="form-control input-lg" type="text" placeholder=".col-xs-4">
+</div>
+</div>
+```
+###
