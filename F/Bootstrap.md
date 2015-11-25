@@ -1369,4 +1369,943 @@ Bootstrap框架中checkbox和radio有点特殊，Bootstrap针对他们做了一�
 </div>
 </div>
 ```
-###
+###表单控件状态(焦点状态)
+表单主要用来与用户沟通，好的表单就能更好的与用户进行沟通，而好的表单一定离不开表单的控件状态。
+
+表单状态的作用：
+
+每一种状态都能给用户传递不同的信息，比如表单有焦点的状态可以告诉用户可以输入或选择东西，禁用状态可以告诉用户不可以输入或选择东西，还有就是表单控件验证状态，可以告诉用户的操作是否正确等。那么在Bootstrap框架中的表单控件也具备这些状态。
+
+焦点状态是通过伪类“:focus”来实现。Bootstrap框架中表单控件的焦点状态删除了outline的默认样式，重新添加阴影效果。
+要让控件在焦点状态下有样式效果，需要给控件添加类名“form-control”：
+```
+<form role="form" class="form-horizontal">
+  <div class="form-group">
+    <div class="col-xs-6">
+      <input class="form-control input-lg" type="text" placeholder="不是焦点状态下效果">
+    </div>
+    <div class="col-xs-6">
+      <input class="form-control input-lg" type="text" placeholder="焦点点状态下效果">
+    </div>
+  </div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b271e700018f8a02780042.jpg)
+（鼠标单击输入框，使其获得焦点就可以看到加入蓝色边框效果）
+在Bootstrap框架中，file、radio和checkbox控件在焦点状态下的效果也与普通的input控件不太一样，主要是因为Bootstrap对他们做了一些特殊处理。
+###表单控件状态(禁用状态)
+Bootstrap框架的表单控件的禁用状态和普通的表单禁用状态实现方法是一样的，在相应的表单控件上添加属性“disabled”。和其他表单的禁用状态不同的是，Bootstrap框架做了一些样式风格的处理：
+源码如下：
+```
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+cursor: not-allowed;
+background-color: #eee;
+opacity: 1;
+}
+```
+使用方法为：只需要在需要禁用的表单控件上加上“disabled”即可：
+```
+<input class="form-control" type="text" placeholder="表单已禁用，不能输入" disabled>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53b27abf00013e5f03360048.jpg)
+在使用了“form-control”的表单控件中，样式设置了禁用表单背景色为灰色，而且手型变成了不准输入的形状。如果控件中不使用类名“form-control”，禁用的控件只会有一个不准输入的手型出来。
+在Bootstrap框架中，如果fieldset设置了disabled属性，整个域都将处于被禁用状态。
+```
+<form role="form">
+<fieldset disabled>
+  <div class="form-group">
+  <label for="disabledTextInput">禁用的输入框</label>
+    <input type="text" id="disabledTextInput" class="form-control" placeholder="禁止输入">
+  </div>
+  <div class="form-group">
+  <label for="disabledSelect">禁用的下拉框</label>
+    <select id="disabledSelect" class="form-control">
+  	<option>不可选择</option>
+    </select>
+  </div>
+  <div class="checkbox">
+  <label>
+    <input type="checkbox">无法选择
+  </label>
+  </div>
+  <button type="submit" class="btnbtn-primary">提交</button>
+</fieldset>
+</form>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53b27b2200010df702890118.jpg)
+据说对于整个禁用的域中，如果legend中有输入框的话，这个输入框是无法被禁用的。我们一起来验证一下：
+```
+<form role="form">
+<fieldset disabled>
+<legend><input type="text" class="form-control" placeholder="显然我颜色变灰了，但是我没被禁用，不信？单击试一下" /></legend>
+    …
+</fieldset>
+</form>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53b27bc30001113302720144.jpg)
+###表单控件状态(验证状态)
+在制作表单时，不免要做表单验证。同样也需要提供验证状态样式，在Bootstrap框架中同样提供这几种效果。
+1、.has-warning:警告状态（黄色）
+2、.has-error：错误状态（红色）
+3、.has-success：成功状态（绿色）
+使用的时候只需要在form-group容器上对应添加状态类名。
+```
+<form role="form">
+<div class="form-group has-success">
+  <label class="control-label" for="inputSuccess1">成功状态</label>
+  <input type="text" class="form-control" id="inputSuccess1" placeholder="成功状态" >
+</div>
+<div class="form-group has-warning">
+  <label class="control-label" for="inputWarning1">警告状态</label>
+  <input type="text" class="form-control" id="inputWarning1" placeholder="警告状态">
+</div>
+<div class="form-group has-error">
+  <label class="control-label" for="inputError1">错误状态</label>
+  <input type="text" class="form-control" id="inputError1" placeholder="错误状态">
+</div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b27e170001133702870115.jpg)
+从效果可以看出，三种状态下效果都是一样的，只是颜色不一样而以。
+
+其他两种状态省略源码不在此展示。
+很多时候，在表单验证的时候，不同的状态会提供不同的 icon，比如成功是一个对号（√），错误是一个叉号（×）等。在Bootstrap框中也提供了这样的效果。如果你想让表单在对应的状态下显示 icon 出来，只需要在对应的状态下添加类名“has-feedback”。请注意，此类名要与“has-error”、“has-warning”和“has-success”在一起：
+```
+<form role="form">
+<div class="form-group has-success has-feedback">
+  <label class="control-label" for="inputSuccess1">成功状态</label>
+  <input type="text" class="form-control" id="inputSuccess1" placeholder="成功状态" >
+  <span class="glyphiconglyphicon-ok form-control-feedback"></span>
+</div>
+<div class="form-group has-warning has-feedback">
+  ......
+</div>
+<div class="form-group has-error has-feedback">
+  ......
+</div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b27e8600013fdf02910117.jpg)
+从效果图中可以看出，图标都居右。在 Bootstrap 的小图标都是使用@font-face来制作（后面的内容中将会着重用一节内容来介绍）。而且必须在表单中添加了一个 span 元素：
+```
+<span class="glyphiconglyphicon-warning-sign form-control-feedback"></span>
+```
+###表单提示信息
+平常在制作表单验证时，要提供不同的提示信息。在Bootstrap框架中也提供了这样的效果。使用了一个"help-block"样式，将提示信息以块状显示，并且显示在控件底部。
+```
+<form role="form">
+<div class="form-group has-success has-feedback">
+  <label class="control-label" for="inputSuccess1">成功状态</label>
+  <input type="text" class="form-control" id="inputSuccess1" placeholder="成功状态" >
+  <span class="help-block">你输入的信息是正确的</span>
+  <span class="glyphiconglyphicon-ok form-control-feedback"></span>
+</div>
+  …
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b2829200018aaf02180116.jpg)
+具体样式代码如下：
+```
+.help-block {
+display: block;
+margin-top: 5px;
+margin-bottom: 10px;
+color: #737373;
+}
+```
+在Bootstrap V2.x版本中还提供了一个行内提示信息，其使用了类名“help-inline”。一般让提示信息显示在控件的后面，也就是同一水平显示。如果你想在BootstrapV3.x版本也有这样的效果，你可以添加这段代码：
+```
+.help-inline{
+  display:inline-block;
+  padding-left:5px;
+  color: #737373;
+}
+```
+如果你不想为bootstrap.css增加自己的代码，而且设计又有这种样的需求，那么只能借助于Bootstrap的网格系统。(网格系统在后面的章节中会详细讲解)
+```
+<form role="form">
+<div class="form-group">
+<label class="control-label" for="inputSuccess1">成功状态</label>
+<div class="row">
+<div class="col-xs-6">
+<input type="text" class="form-control" id="inputSuccess1" placeholder="成功状态" >
+</div>
+<span class="col-xs-6 help-block">你输入的信息是正确的</span>
+</div>
+</div>
+</form>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b283010001402902670049.jpg)
+结束语：有关于Bootstrap框架中表单的运用除了按钮部分，到此就算是介绍完了。如果你觉得这样的表单效果并不是你需要的，你完全可以通过forms.less或者_forms.scss文件进行定制，然后重新编译就可以得到你需要的表单效果。在接下来的一节中，我们Bootstrap框架中另一个核心内容——按钮。
+##按钮
+按钮也是Bootstrap框架核心内容之一。因为按钮是Web制作中不可缺少的东西。而且不同的Web页面具有不同的按钮风格，甚至说同一个Web网站或应用程序具有多种按钮风格，比如说不同的按钮颜色、大小和状态等。那么Bootstrap框架也考虑了这些因素，接下来的内容我们一起来探讨Bootstrap框架中的另一核心部分内容——按钮。
+举个例子：
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定制风格</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+   <button class="btn" type="button">基础按钮.btn</button>  
+   <button class="btn btn-default" type="button">默认按钮.btn-default</button> 
+   <button class="btn btn-primary" type="button">主要按钮.btn-primary</button> 
+   <button class="btn btn-success" type="button">成功按钮.btn-success</button> 
+   <button class="btn btn-info" type="button">信息按钮.btn-info</button> 
+   <button class="btn btn-warning" type="button">警告按钮.btn-warning</button> 
+   <button class="btn btn-danger" type="button">危险按钮.btn-danger</button> 
+   <button class="btn btn-link" type="button">链接按钮.btn-link</button> 
+</body>
+</html>
+```
+###基本按钮
+Bootstrap框架V3.x版本的基本按钮和V2.x版本的基本按钮一样，都是通过类名“btn”来实现。不同的是在V3.x版本要简约很多，去除了V2.x版本中的大量的CSS3中的部分特效，比如说文本阴影（text-shadow）、渐变背景（background-image）、边框阴影（box-shadow）等。
+难能可贵的是，Bootstrap框架中的考虑了不同浏览器的解析差异，进行了比较安全的兼容性处理，使按钮效果在不同的浏览器中所呈现的效果基本相同。
+Bootstrap框架的按钮使用非常的简单，使用方式如下：
+```
+<button class="btn" type="button">我是一个基本按钮</button>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53b28609000143a602800084.jpg)
+###默认按钮
+Bootstrap框架首先通过基础类名“.btn”定义了一个基础的按钮风格，然后通过“.btn-default”定义了一个默认的按钮风格。默认按钮的风格就是在基础按钮的风格的基础上修改了按钮的背景颜色、边框颜色和文本颜色。
+源码:
+```
+.btn-default {
+color: #333;
+background-color: #fff;
+border-color: #ccc;
+}
+```
+使用默认按钮风格也非常的简单，只需要在基础按钮“btn”的基础上增加类名“btn-default”即可：
+```
+<button class="btn btn-default" type="button">默认按钮</button>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b287170001023501820104.jpg)
+###多标签支持
+一般制作按钮除了使用`<button>`标签元素之外，还可以使用`<input type="submit">`和`<a>`标签等。同样，在Bootstrap框架中制作按钮时，除了刚才所说的这些标签元素之外，还可以使用在其他的标签元素上，唯一需要注意的是，要在制作按钮的标签元素上添加类名“btn”。如果不添加是不会有任何按钮效果。
+
+我们一起来看看其他标签制作的基本按钮效果：
+```
+<button class="btn btn-default" type="button">button标签按钮</button>
+<input type="submit" class="btn btn-default" value="input标签按钮"/>
+<a href="##" class="btn btn-default">a标签按钮</a>
+<span class="btn btn-default">span标签按钮</span>
+<div class="btn btn-default">div标签按钮</div>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b287f800014bc402460068.jpg)
+注意：虽然在Bootstrap框架中使用任何标签元素都可以实现按钮风格，但个人并不建议这样使用，为了避免浏览器兼容性问题，个人强烈建议使用button或a标签来制作按钮。
+###定制风格
+在介绍按钮开篇就说过，Web页面可能会有不同的按钮风格。那么在Bootstrap框架也考虑了。在Bootstrap框架中除了默认的按钮风格之外，还有其他六种按钮风格，每种风格的其实都一样，不同之处就是按钮的背景颜色、边框颜色和文本颜色。
+
+在Bootstrap框架中不同的按钮风格都是通过不同的类名来实现，在使用过程中，开发者只需要选择不同的类名即可：
+![Alt text](http://img.mukewang.com/53b367bd0001d59c07530312.jpg)
+![Alt text](http://img.mukewang.com/53b367d10001846a08020810.jpg)
+使用起来就很简单，就像前面介绍的默认按钮一样的使用方法，只需要在基础按钮“.btn”基础上追加对应的类名，就可以得到需要的按钮风格。如：
+```
+<button class="btn" type="button">基础按钮.btn</button>
+<button class="btn btn-default" type="button">默认按钮.btn-default</button>
+<button class="btn btn-primary" type="button">主要按钮.btn-primary</button>
+<button class="btn btn-success" type="button">成功按钮.btn-success</button>
+<button class="btn btn-info" type="button">信息按钮.btn-info</button>
+<button class="btn btn-warning" type="button">警告按钮.btn-warning</button>
+<button class="btn btn-danger" type="button">危险按钮.btn-danger</button>
+<button class="btn btn-link" type="button">链接按钮.btn-link</button>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b368510001fe2701800274.jpg)
+###按钮大小
+上一节介绍了按钮的定制风格，也就是如何实现Web页面中多种风格按钮。在Bootstrap框架中，对于按钮的大小，也是可以定制的。类似于input一样，通过在基础按钮“.btn”的基础上追加类名来控制按钮的大小。
+
+在Bootstrap框架中提供了三个类名来控制按钮大小：
+![Alt text](http://img.mukewang.com/53b36a7600014af106910605.jpg)
+从上表中不难发现，在Bootstrap框架中控制按钮的大小都是通过修改按钮的padding、line-height、font-size和border-radius几个属性。
+那么在实际使用中，这几个类名可以配合按钮中其他颜色类名一起使用，但唯一一点不能缺少“.btn”类名：
+```
+<button class="btn btn-primary btn-lg" type="button">大型按钮.btn-lg</button>
+<button class="btn btn-primary" type="button">正常按钮</button>
+<button class="btn btn-primary btn-sm" type="button">小型按钮.btn-sm</button>
+<button class="btn btn-primary btn-xs" type="button">超小型按钮.btn-xs</button>
+```
+效果如下图:
+![Alt text](http://img.mukewang.com/53b36b220001f92302370097.jpg)
+###块状按钮
+从前面几节的内容中，大家可能发现了，每个示例中的按钮宽度都是依靠按钮文本和padding的值来决定。但有时候在制作按钮的时候需要按钮宽度充满整个父容器（width:100%），特别是在移动端的制作中。那么前面的方法我们都无法很好的实现，除非重新定义按钮的宽度。其实在Bootstrap中并不需要这样做，Bootstrap框架中提供了一个类名“btn-block”。按钮使用这个类名就可以让按钮充满整个容器，并且这个按钮不会有任何的padding和margin值。在实际当中，常把这种按钮称为块状按钮。
+使用方法和前面的类似，只需要在原按钮类名上添加“.btn-block”类名，当然“.btn”类名是不可或缺的：
+```
+<button class="btn btn-primary btn-lg btn-block" type="button">大型按钮.btn-lg</button>
+<button class="btn btn-primary btn-block" type="button">正常按钮</button>
+<button class="btn btn-primary btn-sm btn-block" type="button">小型按钮.btn-sm</button>
+<button class="btn btn-primary btn-xs btn-block" type="button">超小型按钮.btn-xs</button>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53b36c2b000130f202260110.jpg)
+###按钮状态——活动状态
+Bootstrap框架针对按钮的状态做了一些特殊处理。在Bootstrap框架中针对按钮的状态效果主要分为两种：活动状态和禁用状态。
+
+Bootstrap按钮的活动状态主要包括按钮的悬浮状态(:hover)，点击状态(:active)和焦点状态（:focus）几种。
+而且不同风格下的按钮都具有这几种状态效果，只是颜色做了一定的调整，我们以默认风格（btn-default）为例：
+源码:
+```
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+color: #333;
+background-color: #ebebeb;
+border-color: #adadad;
+}
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+background-image: none;
+}
+```
+当按钮处理正在点击状态（也就是鼠标按下的未松开的状态），对于`<button>`元素是通过“:active”伪类实现，而对于`<a>`这样的标签元素则是通过添加类名“.active”来实现。
+观察按钮悬浮状态、点击状态和焦点状态的样式变化。
+###按钮状态——禁用状态
+和input等表单控件一样，在Bootstrap框架的按钮中也具有禁用状态的设置。禁用状态与其他状态按钮相比，就是背景颜色的透明度做了一定的处理，opcity的值从100%调整为65%。
+
+在Bootstrap框架中，要禁用按钮有两种实现方式：
+
+方法1：在标签中添加disabled属性
+
+方法2：在元素标签中添加类名“disabled”
+
+两者的主要区别是：
+“.disabled”样式不会禁止按钮的默认行为，比如说提交和重置行为等。如果想要让这样的禁用按钮也能禁止按钮的默认行为，则需要通过JavaScript这样的语言来处理。对于`<a>`标签也存在类似问题，如果通过类名“.disable”来禁用按钮，其链接行为是无法禁止。而在元素标签中添加“disabled”属性的方法是可以禁止元素的默认行为的。
+
+下面是两种方法的举例：
+```
+<button class="btn btn-primary btn-lg btn-block" type="button" disabled="disabled">通过disabled属性禁用按钮</button>
+<button class="btn btn-primary btn-block disabled" type="button">通过添加类名disabled禁用按钮</button>
+<button class="btn btn-primary btn-sm btn-block" type="button">未禁用的按钮</button>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b36e9d0001132e02690107.jpg)
+到此有关于按钮的基础知识就算是介绍完了，同样的，大家可以通过buttons.less或者_buttons.scss来自定义按钮风格。
+###图像
+图像在网页制作中也是常要用到的元素，在Bootstrap框架中对于图像的样式风格提供以下几种风格：
+
+1、img-responsive：响应式图片，主要针对于响应式设计
+2、img-rounded：圆角图片
+3、img-circle：圆形图片
+4、img-thumbnail：缩略图片
+
+使用方法：
+
+使用方法非常简单，只需要在<img>标签上添加对应的类名，如下代码：
+```
+<img  alt="140x140" src="http://placehold.it/140x140">
+<img  class="img-rounded" alt="140x140" src="http://placehold.it/140x140">
+<img  class="img-circle" alt="140x140" src="http://placehold.it/140x140">
+<img  class="img-thumbnail" alt="140x140" src="http://placehold.it/140x140">
+<img  class="img-responsive" alt="140x140" src="http://placehold.it/140x140">
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b36fc300017b1e02980139.jpg)
+设置图片大小：
+
+由于样式没有对图片做大小上的样式限制，所以在实际使用的时候，需要通过其他的方式来处理图片大小。比如说控制图片容器大小。（注意不可以通过css样式直接修改img图片的大小，这样操作就不响应了）
+
+注意：
+
+对于圆角图片和圆形图片效果，因为是使用了CSS3的圆角样式来实现的，所以注意对于IE8以及其以下版本不支持，是没有圆角效果的。
+
+Bootstrap框架为了大家更好的维护图像的样式，同样将这部分样式独立出来：
+1、LESS版本，可以查阅scaffolding.less
+2、Sass版本，可以查阅_scaffolding.scss
+大家可以修改其中之一，重新编译就可以得到自己需要的图片样式效果。
+举个例子：
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>图像</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <img   alt="140x140" src="http://placehold.it/140x140">
+        <div>默认图片</div>
+    </div>
+    <div class="col-sm-4">
+      <img  class="img-rounded" alt="140x140" src="http://placehold.it/140x140"> 
+        <div>圆角图片</div>
+    </div>
+    <div class="col-sm-4">
+      <img  class="img-circle" alt="140x140" src="http://placehold.it/140x140">
+        <div>圆形图片</div>
+    </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <img  class="img-thumbnail" alt="140x140" src="http://placehold.it/140x140"> 
+            <div>缩略图</div>
+        </div>
+        <div class="col-sm-6">
+          <img  class="img-responsive" alt="140x140" src="http://placehold.it/140x140" /> 
+          <div>响应式图片</div>
+        </div>
+      </div>
+  </div>
+</div> 
+</body>
+</html>
+```
+###图标（一）
+200个icon：
+
+这里说的图标就是Web制作中常看到的小icon图标，可以说这些小icon图标是一个优秀Web中不可缺少的一部分，起到画龙点睛的效果。在Bootstrap框架中也为大家提供了近200个不同的icon图片，而这些图标都是使用CSS3的@font-face属性配合字体来实现的icon效果。
+![Alt text](http://img.mukewang.com/53db0e5b0001aff810560855.jpg)
+放心使用：
+
+在具体介绍Bootstrap的icon图标之前，我们首先要感谢glyphicons.com网站，因为Bootstrap框架中图标都是glyphicons.com这个商业网站提供的，并且免费授权给Bootstrap框架使用，所以大家可以放心使用在自己的项目当中。
+
+Bootstrap框架将内部样式也提取出来：
+1、LESS版本：对应源文件为glyphicons.less文件
+2、Sass版本：对应源文件为_glyphicons.scss文件
+原理分析：
+
+Bootstrap框架中的图标都是字体图标，其实现原理就是通过@font-face属性加载了字体。
+源码:
+```
+@font-face {
+font-family: 'Glyphicons Halflings';
+src: url('../fonts/glyphicons-halflings-regular.eot');
+src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+```
+大家或许会问，这些字体我去哪里获取。如果你是从前面一直阅读过来，我们在介绍文件结构那一节就已介绍过。在Bootstrap框架中有一个fonts的目录，这个目录中提供的字体文件就是用于制作icon的字体文件。
+自定义完字体之后，需要对icon设置一个默认样式，在Bootstrap框架中是通过给元素添加“glyphicon”类名来实现，然后通过伪元素“:before”的“content”属性调取对应的icon编码.
+###图标（二）
+在网页中使用图标也非常的简单，在任何内联元素上应用所对应的样式即可：
+```
+<span class="glyphicon glyphicon-search"></span>
+<span class="glyphicon glyphicon-asterisk"></span>
+<span class="glyphicon glyphicon-plus"></span>
+<span class="glyphicon glyphicon-cloud"></span>
+```
+运行效果如下:
+![Alt text](http://img.mukewang.com/53b371270001aff102680096.jpg)
+所有icon都是以”glyphicon-”前缀的类名开始，然后后缀表示图标的名称。具体说明如下：
+![Alt text](http://img.mukewang.com/53da0a7e0001300509180435.jpg)
+所有名称查看：
+
+请点击：http://getbootstrap.com/components/#glyphicons 链接查阅
+特别说明：
+
+除了使用glyphicon.com提供的图标之外，还可以使用第三方为Bootstrap框架设计的图标字体，如Font Awesome(http://www.bootcss.com/p/font-awesome/)。使用方法和上面介绍的一样，不过记得将字体下载到你本地。 感兴趣的可以阅读官网相关介绍。
+
+#网格系统
+###实现原理
+网格系统的实现原理非常简单，仅仅是通过定义容器大小，平分12份(也有平分成24份或32份，但12份是最常见的)，再调整内外边距，最后结合媒体查询，就制作出了强大的响应式网格系统。Bootstrap框架中的网格系统就是将容器平分成12份。
+
+在使用的时候大家可以根据实际情况重新编译LESS（或Sass）源码来修改12这个数值（也就是换成24或32，当然你也可以分成更多，但不建议这样使用）。
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>实现原理</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+  </div>
+  <div class="row">
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+  </div>
+    <div class="row">
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+    <div class="col-md-1">.col-md-1</div>
+  </div>
+</div>
+</body>
+</html>
+```
+###工作原理
+Bootstrap框架的网格系统工作原理如下：
+
+1、数据行(.row)必须包含在容器（.container）中，以便为其赋予合适的对齐方式和内距(padding)。如：
+```
+<div class="container">
+<div class="row"></div>
+</div>
+```
+2、在行(.row)中可以添加列(.column)，但列数之和不能超过平分的总列数，比如12。如：
+```
+<div class="container">
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-8"></div>
+</div>
+</div>
+```
+3、具体内容应当放置在列容器（column）之内，而且只有列（column）才可以作为行容器(.row)的直接子元素
+4、通过设置内距（padding）从而创建列与列之间的间距。然后通过为第一列和最后一列设置负值的外距（margin）来抵消内距(padding)的影响
+
+为了更好的理解Bootstrap框架的网格系统工作原理，我们来看一张草图：
+![Alt text](http://img.mukewang.com/53b0f9c000018b9305540282.jpg)
+简单对图解释一下：
+
+1、最外边框，带有一大片白色区域，就是相当于浏览器的可视区域。在Bootstrap框架的网格系统中带有响应式效果，其带有四种类型的浏览器（超小屏，小屏，中屏和大屏），其断点（像素的分界点）是768px、992px和1220px。
+
+2、第二个边框(1)相当于容器(.container)。针对不同的浏览器分辨率，其宽度也不一样：自动、750px、970px和1170px。在bootstrap.css的第736行～第756行进行设置：
+源码：
+```
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  @media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+  @media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+  @media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+  ```
+  3、２号横条阐述的是，将容器的行（.row）平分了12等份，也就是列。每个列都有一个“padding-left:15px”(图中粉红色部分)和一个“padding-right:15px”(图中紫色部分)。这样也导致了第一个列的padding-left和最后一列的padding-right占据了总宽度的30px，从而致使页面不美观，当然，如果你需要留有一定的间距，这个做法是不错的。
+源码：
+```
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+```
+4、３号横条就是行容器(.row),其定义了“margin-left”和”margin-right”值为”-15px”，用来抵消第一个列的左内距和最后一列的右内距。
+源码：
+```
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+```
+5、将行与列给合在一起就能看到横条4的效果。也就是我们期望看到的效果，第一列和最后一列与容器（.container）之间没有间距。
+
+横条５只是想向大家展示，你可以根据需要，任意组合列与列，只是他们的组合数之和不要超过总列数。
+注：如果每行网格数超过12会换行
+###基本用法
+网格系统用来布局，其实就是列的组合。Bootstrap框架的网格系统中有四种基本的用法。由于Bootstrap框架在不同屏幕尺寸使用了不同的网格样式，在这一节中所涉及到的示例，我们都以中屏（970px）为例进行介绍，其他屏幕的使用也类似这一种。关于屏幕尺寸如下图：
+![Alt text](http://img.mukewang.com/53e483500001c7f408770494.jpg)
+1、列组合
+
+列组合简单理解就是更改数字来合并列（原则：列总和数不能超12），有点类似于表格的colspan属性，例如：
+```
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-8">.col-md-8</div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-4">.col-md-4</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">.col-md-3</div>
+    <div class="col-md-6">.col-md-6</div>
+    <div class="col-md-3">.col-md-3</div>
+ </div>
+</div>
+```
+使用上面的结构，你将看到下图的效果：
+![Alt text](http://img.mukewang.com/53b0fbdc00015f2805540051.jpg)
+实现列组合方式非常简单，只涉及两个CSS两个特性：浮动与宽度百分比。
+确保所有列左浮动:
+```
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+    float: left;
+ }
+```
+定义每个列组合的宽度（使用的百分比）:
+```
+  .col-md-12 {
+    width: 100%;
+  }
+  .col-md-11 {
+    width: 91.66666667%;
+  }
+  .col-md-10 {
+    width: 83.33333333%;
+  }
+  .col-md-9 {
+    width: 75%;
+  }
+  .col-md-8 {
+    width: 66.66666667%;
+  }
+  .col-md-7 {
+    width: 58.33333333%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-5 {
+    width: 41.66666667%;
+  }
+  .col-md-4 {
+    width: 33.33333333%;
+  }
+  .col-md-3 {
+    width: 25%;
+  }
+  .col-md-2 {
+    width: 16.66666667%;
+  }
+  .col-md-1 {
+    width: 8.33333333%;
+  }
+```
+###列偏移
+有的时候，我们不希望相邻的两个列紧靠在一起，但又不想使用margin或者其他的技术手段来。这个时候就可以使用列偏移（offset）功能来实现。使用列偏移也非常简单，只需要在列元素上添加类名“col-md-offset-*”(其中星号代表要偏移的列组合数)，那么具有这个类名的列就会向右偏移。例如，你在列元素上添加“col-md-offset-4”，表示该列向右移动4个列的宽度。
+```
+<div class="container">
+<div class="row">
+<div class="col-md-4">.col-md-4</div>
+<div class="col-md-2 col-md-offset-4">列向右移动四列的间距</div>
+<div class="col-md-2">.col-md-3</div>
+</div>
+<div class="row">
+<div class="col-md-4">.col-md-4</div>
+<div class="col-md-4 col-md-offset-4">列向右移动四列的间距</div>
+</div>
+</div>
+```
+上面的示例代码，得到的效果如下:
+![Alt text](http://img.mukewang.com/53b0fe8d00018ca605530045.jpg)
+实现原理非常简单，就是利用十二分之一（1/12）的margin-left。然后有多少个offset，就有多少个margin-left。在bootstrap.css中第1205行～1241行所示：
+```
+  .col-md-offset-12 {
+   margin-left: 100%;
+}
+  .col-md-offset-11 {
+    margin-left: 91.66666667%;
+  }
+  .col-md-offset-10 {
+    margin-left: 83.33333333%;
+  }
+  .col-md-offset-9 {
+    margin-left: 75%;
+  }
+  .col-md-offset-8 {
+    margin-left: 66.66666667%;
+  }
+  .col-md-offset-7 {
+    margin-left: 58.33333333%;
+  }
+  .col-md-offset-6 {
+    margin-left: 50%;
+  }
+  .col-md-offset-5 {
+    margin-left: 41.66666667%;
+  }
+  .col-md-offset-4 {
+    margin-left: 33.33333333%;
+  }
+  .col-md-offset-3 {
+    margin-left: 25%;
+  }
+  .col-md-offset-2 {
+    margin-left: 16.66666667%;
+  }
+  .col-md-offset-1 {
+    margin-left: 8.33333333%;
+  }
+  .col-md-offset-0 {
+    margin-left: 0;
+  }
+```
+  注意：
+
+不过有一个细节需要注意，使用”col-md-offset-*”对列进行向右偏移时，要保证列与偏移列的总数不超过12，不然会致列断行显示，如：
+```
+<div class="row">
+  <div class="col-md-3">.col-md-3</div>
+  <div class="col-md-3 col-md-offset-3">col-md-offset-3</div>
+  <div class="col-md-4">col-md-4</div>
+</div>
+```
+上面代码中列和偏移列总数为3+3+3+4 = 13>12，所以发生了列断行。
+如上面的示例代码，得到的效果如下:
+![Alt text](http://img.mukewang.com/53b0ff3f00015e2f05530050.jpg)
+###列排序
+列排序其实就是改变列的方向，就是改变左右浮动，并且设置浮动的距离。在Bootstrap框架的网格系统中是通过添加类名“col-md-push-*”和“col-md-pull-*” (其中星号代表移动的列组合数)。
+
+我们来看一个简单的示例：
+```
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-8">.col-md-8</div>
+  </div>
+</div>
+```
+默认情况之下，上面的代码效果如下：
+![Alt text](http://img.mukewang.com/53b10a400001af8005540037.jpg)
+“col-md-4”居左，“col-md-8”居右，如果要互换位置，需要将“col-md-4”向右移动８个列的距离，也就是8个offset ,也就是在“`<div class=“col-md-4”>`”添加类名“col-md-push-8”，调用其样式。
+![Alt text](http://img.mukewang.com/53b10a79000152b805540042.jpg)
+也要将“col-md-8”向左移动４个列的距离，也就是4个offset，在“<div class=”col-md-8”>”上添加类名“col-md-pull-4”：
+![Alt text](http://img.mukewang.com/53b10aa80001687005530038.jpg)
+Bootstrap仅通过设置left和right来实现定位效果。在boostrap.css文件的第1127行~第1204行可以看到具体的代码：
+```
+.col-md-pull-12 {
+    right: 100%;
+  }
+  .col-md-pull-11 {
+    right: 91.66666667%;
+  }
+  .col-md-pull-10 {
+    right: 83.33333333%;
+  }
+  .col-md-pull-9 {
+    right: 75%;
+  }
+  .col-md-pull-8 {
+    right: 66.66666667%;
+  }
+  .col-md-pull-7 {
+    right: 58.33333333%;
+  }
+  .col-md-pull-6 {
+    right: 50%;
+  }
+  .col-md-pull-5 {
+    right: 41.66666667%;
+  }
+
+  .col-md-pull-4 {
+    right: 33.33333333%;
+  }
+
+  .col-md-pull-3 {
+    right: 25%;
+  }
+
+  .col-md-pull-2 {
+    right: 16.66666667%;
+  }
+  .col-md-pull-1 {
+    right: 8.33333333%;
+  }
+  .col-md-pull-0 {
+    right: 0;
+  }
+
+  .col-md-push-12 {
+    left: 100%;
+  }
+  .col-md-push-11 {
+    left: 91.66666667%;
+  }
+  .col-md-push-10 {
+    left: 83.33333333%;
+  }
+  .col-md-push-9 {
+    left: 75%;
+  }
+  .col-md-push-8 {
+    left: 66.66666667%;
+  }
+  .col-md-push-7 {
+    left: 58.33333333%;
+  }
+  .col-md-push-6 {
+    left: 50%;
+  }
+  .col-md-push-5 {
+    left: 41.66666667%;
+  }
+  .col-md-push-4 {
+    left: 33.33333333%;
+  }
+  .col-md-push-3 {
+    left: 25%;
+  }
+  .col-md-push-2 {
+    left: 16.66666667%;
+  }
+  .col-md-push-1 {
+    left: 8.33333333%;
+  }
+  .col-md-push-0 {
+    left: 0;
+  }
+```
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>列排序</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="common.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">.col-xs-4</div>
+        <div class="col-xs-8">.col-xs-8</div>
+    </div>
+</div>
+</body>
+</html>
+```
+###列的嵌套
+Bootstrap框架的网格系统还支持列的嵌套。你可以在一个列中添加一个或者多个行（row）容器，然后在这个行容器中插入列（像前面介绍的一样使用列）。但在列容器中的行容器（row），宽度为100%时，就是当前外部列的宽度。来看一个简单示例：
+```
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+        我的里面嵌套了一个网格
+            <div class="row">
+            <div class="col-md-6">col-md-6</div>
+            <div class="col-md-6">col-md-6</div>
+          </div>
+        </div>
+    <div class="col-md-4">col-md-4</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-8">
+    我的里面嵌套了一个网格
+        <div class="row">
+          <div class="col-md-4">col-md-4</div>
+          <div class="col-md-4">col-md-4</div>
+          <div class="col-md-4">col-md-4</div>
+        </div>
+    </div>
+    </div>
+</div>
+```
+效果如下：
+![Alt text](http://img.mukewang.com/53b10c9e0001e28b05540070.jpg)
+注意：嵌套的列总数也需要遵循不超过12列。不然会造成末位列换行显示。
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>列的嵌套</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      我的里面嵌套了一个网格
+      <div class="row">
+        <div class="col-sm-6">col-sm-6</div>
+        <div class="col-sm-6">col-sm-6</div>
+      </div>
+    </div>
+    <div class="col-sm-4">col-sm-4</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">.col-sm-4</div>
+    <div class="col-sm-8">
+      我的里面嵌套了一个网格
+      <div class="row">
+        <div class="col-sm-4">col-sm-4</div>
+        <div class="col-sm-4">col-sm-4</div>
+        <div class="col-sm-4">col-sm-4</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-8">.col-sm-8
+          <div class="row">
+              <div class="col-sm-8">.col-sm-8</div>
+              <div class="col-sm-4">.col-sm-4</div>
+          </div>
+      </div>
+      <div class="col-sm-4">.col-sm-4
+        <div class="row">
+          <div class="col-sm-9">.col-sm-9</div>
+          <div class="col-sm-3">.col-sm-3</div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+```
+##下拉菜单（基本用法）
+小伙伴们注意，在Bootstrap框架中的下拉菜单组件是一个独立的组件，根据不同的版本，它对应的文件：
+
+  ☑  LESS版本：对应的源码文件为 dropdowns.less
+
+  ☑  Sass版本：对应的源码文件为 _dropdowns.scss
+
+  ☑  编译后的Bootstrap版本：查看bootstrap.css文件第3004行～第3130行
+  
