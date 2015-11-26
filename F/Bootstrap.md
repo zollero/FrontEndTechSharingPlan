@@ -2309,3 +2309,430 @@ Bootstrap框架的网格系统还支持列的嵌套。你可以在一个列中�
 
   ☑  编译后的Bootstrap版本：查看bootstrap.css文件第3004行～第3130行
   
+在使用Bootstrap框架的下拉菜单时，必须调用Bootstrap框架提供的bootstrap.js文件。当然，如果你使用的是未编译版本，在js文件夹下你能找到一个名为“dropdown.js”的文件。你也可以调用这个js文件。不过在我们的教程中，我们统一调用压缩好的“bootstrap.min.js”文件：
+```
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+```
+特别声明：因为Bootstrap的组件交互效果都是依赖于jQuery库写的插件，所以在使用bootstrap.min.js之前一定要先加载jquery.min.js才会生效果。
+
+我们先来看官网上一个简单的示例：
+```
+<div class="dropdown">
+<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+下拉菜单
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+   <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+   …
+   <li role="presentation" class="divider"></li>
+   <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+</ul>
+</div>
+```
+使用方法：
+
+在使用Bootstrap框架中的下拉菜单组件时，其结构运用的正确与否非常的重要，如果结构和类名未使用正确，直接影响组件是否能正常运用。我们来简单的看看：
+
+1、使用一个名为“dropdown”的容器包裹了整个下拉菜单元素，示例中为:
+```
+<div class="dropdown"></div>
+```
+2、使用了一个<button>按钮做为父菜单，并且定义类名“dropdown-toggle”和自定义“data-toggle”属性，且值必须和最外容器类名一致，此示例为:
+```
+data-toggle="dropdown"
+```
+3、下拉菜单项使用一个ul列表，并且定义一个类名为“dropdown-menu”，此示例为:
+```
+<ul class="dropdown-menu">
+```
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>下拉菜单</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+ <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    下拉菜单
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+  </ul>
+</div> 
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+        选择你喜欢的水果
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">苹果</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">香蕉</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">梨</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">桃</a></li>
+    </ul>
+</div>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+</body>
+</html>
+```
+###下拉菜单（原理分析）
+Bootstrap框架中的下拉菜单组件，其下拉菜单项默认是隐藏的，如下所示：
+![Alt text](http://img.mukewang.com/53e1f1850001230803900164.jpg)
+因为“dropdown-menu”默认样式设置了“display:none”
+当用户点击父菜单项时，下拉菜单将会被显示出来，如下所示：
+![Alt text](http://img.mukewang.com/53e1f3dc0001c10204150412.jpg)
+当用户再次点击时，下拉菜单将继续隐藏，如下所示：
+![Alt text](http://img.mukewang.com/53e1f1850001230803900164.jpg)
+原理分析：
+
+现在我们来分析一下实现原理，非常简单，通过js技术手段，给父容器“div.dropdown”添加或移除类名“open”来控制下拉菜单显示或隐藏。也就是说，默认情况，“div.dropdown”没有类名“open”，当用户第一次点击时，“div.dropdown”会添加类名“open”；当用户再次点击时，“div.dropdown”容器中的类名“open”又会被移除。我们可以通过浏览器的firebug查看整个过程：
+
+默认情况：
+![Alt text](http://img.mukewang.com/53e314020001537208700352.jpg)
+用户第一次点击：
+![Alt text](http://img.mukewang.com/53e314360001a81808720333.jpg)
+用户再次点击：
+![Alt text](http://img.mukewang.com/53e31461000180e608710333.jpg)
+###下拉菜单（下拉分隔线）
+在Bootstrap框架中的下拉菜单还提供了下拉分隔线，假设下拉菜单有两个组，那么组与组之间可以通过添加一个空的`<li>`，并且给这个`<li>`添加类名“divider”来实现添加下拉分隔线的功能。对应的样式代码：
+```
+.dropdown-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+```
+效果如下：
+![Alt text](http://img.mukewang.com/53e346260001aed304220432.jpg)
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>下拉分隔线</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+ <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    下拉菜单
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+    <li role="presentation" class="divider"></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+  </ul>
+</div>
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id="food">
+        食物
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="food">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">苹果</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">香蕉</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">梨</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">桃</a></li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">芹菜</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">萝卜</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">茄子</a></li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">米饭</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">馒头</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">面条</a></li>
+    </ul>
+</div>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+</body>
+</html>
+```
+###下拉菜单（菜单标题）
+上一小节讲解通过添加“divider”可以将下拉菜单分组，为了让这个分组更明显，还可以给每个组添加一个头部（标题）。如下：
+```
+<div class="dropdown">
+<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+下拉菜单
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+<li role="presentation" class="dropdown-header">第一部分菜单头部</li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+…
+<li role="presentation" class="divider"></li>
+<li role="presentation" class="dropdown-header">第二部分菜单头部</li>
+…
+<li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+</ul>
+</div>
+```
+对应的样式如下：
+
+/*查看bootstrap.css文件第3090行～第3096行*/
+```
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: 12px;
+  line-height: 1.42857143;
+  color: #999;
+}
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e34b1e0001ccdd07440651.jpg)
+###下拉菜单（对齐方式）
+实现右对齐方法：
+
+Bootstrap框架中下拉菜单默认是左对齐，如果你想让下拉菜单相对于父容器右对齐时，可以在“dropdown-menu”上添加一个“pull-right”或者“dropdown-menu-right”类名，如下所示：
+```
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+  下拉菜单
+  <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+   …
+  </ul>
+</div>
+```
+上面代码中的“pull-right”类可以用“dropdown-menu-right”代替，两个类的作用是一样的，可从下面的源代码中看出。
+实现原理：
+
+对应的样式如下：
+
+源码请查看bootstrap.css文件第3030行～第3033行和3082行～第3085行
+```
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+.dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+```
+同时一定要为.dropdown添加float:leftcss样式。
+```
+.dropdown{
+  float: left;
+}
+```
+运行效果如下所示：
+![Alt text](http://img.mukewang.com/53e34c370001522204970469.jpg)
+下拉菜单与父容器左边对齐:
+
+与此同时，还有一个类名刚好与“dropdown-menu-right”相反的类名“dropdown-menu-left”，其效果就是让下拉菜单与父容器左边对齐，其实就是默认效果。
+
+请查看bootstrap.css文件第3086行～第3089行
+```
+.dropdown-menu-left {
+  right: auto;
+  left: 0;
+}
+```
+###下拉菜单（菜单项状态）
+下拉菜单项的默认的状态（不用设置）有悬浮状态（:hover）和焦点状态（:focus）：
+
+查看bootstrap.css文件第3049行～第3054行
+```
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+```
+下拉菜单项除了上面两种状态，还有当前状态（.active）和禁用状态（.disabled）。这两种状态使用方法只需要在对应的菜单项上添加对应的类名：
+```
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+  下拉菜单
+  <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+    ….
+    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+  </ul>
+</div>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e44d0d000131d208720446.jpg)
+##按钮（按钮组）
+单个按钮在Web页面中的运用有时候并不能满足我们的业务需求，常常会看到将多个按钮组合在一起使用，比如富文本编辑器里的一组小图标按钮等。那么在这一节中，我们主要向大家介绍Bootstrap框架为大家提供的按钮组组件。
+
+源码查询：
+
+按钮组也是一个独立的组件，所以可以找到对应的源码文件：
+
+  ☑  LESS版本：对应的源文件为buttons.less
+
+  ☑  Sass版本：对应的源文件为_buttons.scss
+
+  ☑  CSS版本：对应bootstrap.css文件第3131行～第3291行
+使用方法：
+
+按钮组和下拉菜单组件一样，需要依赖于button.js插件才能正常运行。不过我们同样可以直接只调用bootstrap.js文件。因为这个文件已集成了button.js插件功能。
+对于结构方面，非常的简单。使用一个名为“btn-group”的容器，把多个按钮放到这个容器中。如下所示：
+```
+<div class="btn-group">
+  <button type="button" class="btn btn-default">
+     <span class="glyphicon glyphicon-step-backward"></span>
+  </button>
+   …
+  <button type="button" class="btn btn-default">
+     <span class="glyphicon glyphicon-step-forward"></span>
+  </button>
+</div>
+```
+运行效果如下所示：
+![Alt text](http://img.mukewang.com/53e458d10001af8808310131.jpg)
+除了可以使用<button>元素之外，还可以使用其他标签元素，比如`<a>`标签。唯一要保证的是：不管使用什么标签，“.btn-group”容器里的标签元素需要带有类名“.btn”。
+###按钮（按钮工具栏）
+在富文本编辑器中，将按钮组分组排列在一起，比如说复制、剪切和粘贴一组；左对齐、中间对齐、右对齐和两端对齐一组，如下图所示：
+![Alt text](http://img.mukewang.com/53e45edc00019ad308600101.jpg)
+那么Bootstrap框架按钮工具栏也提供了这样的制作方法，你只需要将按钮组“btn-group”按组放在一个大的容器“btn-toolbar”中，如下所示：
+```
+<div class="btn-toolbar">
+  <div class="btn-group">
+    …
+  </div>
+  <div class="btn-group">
+    …
+  </div>
+  <div class="btn-group">
+    …
+  </div>
+  <div class="btn-group">
+    …
+  </div>
+</div>
+```
+实现原理主要是让容器的多个分组“btn-group”元素进行浮动，并且组与组之前保持5px的左外距。代码如下：
+
+源码请查阅bootstrap.css文件第3162行～第3173行
+```
+.btn-toolbar {
+  margin-left: -5px;
+}
+.btn-toolbar .btn-group,
+.btn-toolbar .input-group {
+  float: left;
+}
+.btn-toolbar > .btn,
+.btn-toolbar > .btn-group,
+.btn-toolbar > .input-group {
+  margin-left: 5px;
+}
+```
+注意在”btn-toolbar”上清除浮动。
+
+源码请查阅bootstrap.css文件第5062行
+```
+.btn-toolbar:before,
+.btn-toolbar:after｛
+　display: table;
+content: " ";
+｝
+.btn-toolbar:after{
+  clear: both;
+}
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e462020001bd2e08240084.jpg)
+按钮组大小设置
+
+在介绍按钮一节中，我们知道按钮是通过btn-lg、btn-sm和btn-xs三个类名来调整padding、font-size、line-height和border-radius属性值来改变按钮大小。那么按钮组的大小，我们也可以通过类似的方法：
+
+  ☑  .btn-group-lg:大按钮组
+
+  ☑  .btn-group-sm:小按钮组
+
+  ☑  .btn-group-xs:超小按钮组
+只需要在“.btn-group”类名上追加对应的类名，就可以得到不同大小的按钮组。如下所示：
+```
+<div class="btn-toolbar">
+  <div class="btn-group btn-group-lg">
+    …
+  </div>
+  <div class="btn-group">
+    …
+  </div>
+  <div class="btn-group btn-group-sm">
+    …
+  </div>
+  <div class="btn-group btn-group-xs">
+   …
+  </div>
+</div>
+```
+运行效果如下所示：
+![Alt text](http://img.mukewang.com/53e4632b0001bb2808230100.jpg)
+###按钮（嵌套分组）
+很多时候，我们常把下拉菜单和普通的按钮组排列在一起，实现类似于导航菜单的效果。如下所示：
+![Alt text](http://img.mukewang.com/53e466ac0001273008410307.jpg)
+使用的时候，只需要把当初制作下拉菜单的“dropdown”的容器换成“btn-group”，并且和普通的按钮放在同一级。如下所示：
+```
+<div class="btn-group">
+<button class="btnbtn-default" type="button">首页</button>
+<button class="btnbtn-default" type="button">产品展示</button>
+<button class="btnbtn-default" type="button">案例分析</button>
+<button class="btnbtn-default" type="button">联系我们</button>
+<div class="btn-group">
+   <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">关于我们<span class="caret"></span></button>
+   <ul class="dropdown-menu">
+         <li><a href="##">公司简介</a></li>
+         <li><a href="##">企业文化</a></li>
+         <li><a href="##">组织结构</a></li>
+         <li><a href="##">客服服务</a></li>
+    </ul>
+</div>
+</div>
+```
+###按钮（垂直分组）
+前面看到的示例，按钮组都是水平显示的。但在实际运用当中，总会碰到垂直显示的效果。在Bootstrap框架中也提供了这样的风格。我们只需要把水平分组的“btn-group”类名换成“btn-group-vertical”即可。如下所示：
+```
+<div class="btn-group-vertical">
+<button class="btnbtn-default" type="button">首页</button>
+<button class="btnbtn-default" type="button">产品展示</button>
+<button class="btnbtn-default" type="button">案例分析</button>
+<button class="btnbtn-default" type="button">联系我们</button>
+<div class="btn-group">
+   <button class="btnbtn-default dropdown-toggle" data-toggle="dropdown" type="button">关于我们<span class="caret"></span></button>
+   <ul class="dropdown-menu">
+      <li><a href="##">公司简介</a></li>
+      <li><a href="##">企业文化</a></li>
+      <li><a href="##">组织结构</a></li>
+      <li><a href="##">客服服务</a></li>
+</ul>
+</div>
+</div>
+```
+运行的效果如下：
+![Alt text](http://img.mukewang.com/53e85b8f0001cfd001870309.jpg)
+和水平分组按钮不一样的是：
+
+  ☑  水平分组按钮第一个按钮左上角和左下角具有圆角以及最后一个按钮右上角和右下角具有圆角
+
+  ☑  垂直分组按钮第一个按钮左上角和右上角具有圆角以及最后一个按钮左下角和右下角具有圆角
+###
