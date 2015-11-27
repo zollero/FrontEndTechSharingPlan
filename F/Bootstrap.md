@@ -2972,4 +2972,107 @@ Bootstrap框架中制作导航条主要通过“.nav”样式。默认的“.nav
 运行效果如下：
 ![Alt text](http://img.mukewang.com/53e86c8b00015ca208550155.jpg)
 注意：我们看到的选项卡效果，点击菜单项就可以切换内容，如果要实现这样的效果需要配合js插件，这部分将在后面的教程中会介绍。
-###
+###导航（胶囊形(pills)导航）
+胶囊形（pills）导航听起来有点别扭，因为其外形看起来有点像胶囊形状。但其更像我们平时看到的大众形导航。当前项高亮显示，并带有圆角效果。其实现方法和“nav-tabs”类似，同样的结构，只需要把类名“nav-tabs”换成“nav-pills”即可：
+```
+<ul class="nav nav-pills">
+      <li class="active"><a href="##">Home</a></li>
+      <li><a href="##">CSS3</a></li>
+      <li><a href="##">Sass</a></li>
+      <li><a href="##">jQuery</a></li>
+      <li class="disabled"><a href="##">Responsive</a></li>
+</ul>
+```
+![Alt text](http://img.mukewang.com/53e86ee60001711e08160307.jpg)
+###导航（垂直堆叠的导航）
+在实际运用当中，除了水平导航之外，还有垂直导航，就类似前面介绍的垂直排列按钮一样。制作垂直堆叠导航只需要在“nav-pills”的基础上添加一个“nav-stacked”类名即可：
+```
+<ul class="nav nav-pills nav-stacked">
+     <li class="active"><a href="##">Home</a></li>
+     <li><a href="##">CSS3</a></li>
+     <li><a href="##">Sass</a></li>
+     <li><a href="##">jQuery</a></li>
+     <li class="disabled"><a href="##">Responsive</a></li>
+</ul>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e871a2000102b707240444.jpg)
+垂直堆叠导航与胶囊形导航相比，主要是让导航项不浮动，让其垂直排列，然后给相邻导航项留有一定的间距：
+
+源码请查阅bootstrap.css文件第3578行～第3584行
+```
+.nav-stacked > li {
+  float: none;
+}
+.nav-stacked > li + li {
+  margin-top: 2px;
+  margin-left: 0;
+}
+```
+大家是否还记得，在下拉菜单一节中，下拉菜单组与组之间有一个分隔线。其实在垂直堆叠导航也具有这样的效果，只需要添加在导航项之间添加“`<li class=”nav-divider”></li>`”即可：
+```
+<ul class="nav nav-pills nav-stacked">
+    <li class="active"><a href="##">Home</a></li>
+    <li><a href="##">CSS3</a></li>
+    <li><a href="##">Sass</a></li>
+    <li><a href="##">jQuery</a></li>
+   <li class="nav-divider"></li>
+    <li class="disabled"><a href="##">Responsive</a></li>
+</ul>
+```
+实现样式：
+
+源码请查阅bootstrap.css文件第3485行～3490行
+```
+.nav .nav-divider {
+height: 1px;
+margin: 9px 0;
+overflow: hidden;
+background-color: #e5e5e5;
+}
+```
+或许你会问，如果我在”nav-tabs”上添加“nav-stacked”是不是也能实现垂直的标签选项导航呢？答案是：在bootstrap V2.x版本可以，但在Bootstrap V3.x版本将这个效果取消了，可能作者觉得垂直选择项并不太常见，也不美观吧。
+###自适应导航（使用）
+自适应导航指的是导航占据容器全部宽度，而且菜单项可以像表格的单元格一样自适应宽度。自适应导航和前面使用“btn-group-justified”制作的自适应按钮组是一样的。只不过在制作自适应导航时更换了另一个类名“nav-justified”。当然他需要和“nav-tabs”或者“nav-pills”配合在一起使用。如：
+```
+<ul class="nav nav-tabs nav-justified">
+     <li class="active"><a href="##">Home</a></li>
+     <li><a href="##">CSS3</a></li>
+     <li><a href="##">Sass</a></li>
+     <li><a href="##">jQuery</a></li>
+     <li><a href="##">Responsive</a></li>
+</ul>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53ed99aa00016bcb08630061.jpg)
+###自适应导航（实现原理）
+实现原理并不难，列表（`<ul>`）上设置宽度为“100%”，然后每个菜单项(`<li>`)设置了“display:table-cell”，让列表项以模拟表格单元格的形式显示：
+源码请查阅bootstrap.css文件第3585行～第3607行
+```
+.nav-justified {
+  width: 100%;
+}
+.nav-justified > li {
+  float: none;
+}
+.nav-justified > li > a {
+  margin-bottom: 5px;
+  text-align: center;
+}
+.nav-justified > .dropdown .dropdown-menu {
+  top: auto;
+  left: auto;
+}
+@media (min-width: 768px) {
+  .nav-justified > li {
+  display: table-cell;
+  width: 1%;
+  }
+  .nav-justified > li > a {
+  margin-bottom: 0;
+  }
+}
+```
+这里有一个媒体查询条件：“@media (min-width:768px){…}”表示自适应导航仅在浏览器视窗宽度大于768px才能按上图风格显示。当你的浏览器视窗宽度小于768px的时候，将会按下图的风格展示：
+![Alt text](http://img.mukewang.com/53e874f70001bacb06150786.jpg)
+从上图效果可以得知，“nav-tabs”和“nav-justified”配合在一起使用，也就是自适应选项卡导航，浏览器视窗宽度小于768px时，在样式上做了另外的处理。
