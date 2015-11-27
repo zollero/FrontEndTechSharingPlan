@@ -3076,3 +3076,4 @@ background-color: #e5e5e5;
 这里有一个媒体查询条件：“@media (min-width:768px){…}”表示自适应导航仅在浏览器视窗宽度大于768px才能按上图风格显示。当你的浏览器视窗宽度小于768px的时候，将会按下图的风格展示：
 ![Alt text](http://img.mukewang.com/53e874f70001bacb06150786.jpg)
 从上图效果可以得知，“nav-tabs”和“nav-justified”配合在一起使用，也就是自适应选项卡导航，浏览器视窗宽度小于768px时，在样式上做了另外的处理。
+###
