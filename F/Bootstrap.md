@@ -2735,4 +2735,144 @@ content: " ";
   ☑  水平分组按钮第一个按钮左上角和左下角具有圆角以及最后一个按钮右上角和右下角具有圆角
 
   ☑  垂直分组按钮第一个按钮左上角和右上角具有圆角以及最后一个按钮左下角和右下角具有圆角
+###按钮（等分按钮）
+等分按钮的效果在移动端上特别的实用。整个按钮组宽度是容器的100%，而按钮组里面的每个按钮平分整个容器宽度。例如，如果你按钮组里面有五个按钮，那么每个按钮是20%的宽度，如果有四个按钮，那么每个按钮是25%宽度，以此类推。
+
+等分按钮也常被称为是自适应分组按钮，其实现方法也非常的简单，只需要在按钮组“btn-group”上追加一个“btn-group-justified”类名，如下所示：
+```
+<div class="btn-wrap">
+<div class="btn-group btn-group-justified">
+  <a class="btnbtn-default" href="#">首页</a>
+  <a class="btnbtn-default" href="#">产品展示</a>
+  <a class="btnbtn-default" href="#">案例分析</a>
+  <a class="btnbtn-default" href="#">联系我们</a>
+</div>
+</div>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e46af60001ab0306850099.jpg)
+实现原理非常简单，把“btn-group-justified”模拟成表格（display:table），而且把里面的按钮模拟成表格单元格（display:table-cell）。具体样式代码如下：
+
+源码请查看bootstrap.css文件第3277行～第3291行
+```
+.btn-group-justified {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+}
+.btn-group-justified > .btn,
+.btn-group-justified > .btn-group {
+  display: table-cell;
+  float: none;
+  width: 1%;
+}
+.btn-group-justified > .btn-group .btn {
+  width: 100%;
+}
+```
+特别声明：在制作等分按钮组时，请尽量使用`<a>`标签元素来制作按钮，因为使用`<button>`标签元素时，使用display:table在部分浏览器下支持并不友好。
+###按钮下拉菜单
+按钮下拉菜单仅从外观上看和上一节介绍的下拉菜单效果基本上是一样的。不同的是在普通的下拉菜单的基础上封装了按钮（.btn）样式效果。简单点说就是点击一个按钮，会显示隐藏的下拉菜单。
+
+按钮下拉菜单其实就是普通的下拉菜单，只不过把“`<a>`”标签元素换成了“<button>”标签元素。唯一不同的是外部容器“div.dropdown”换成了“div.btn-group”。如下所示：
+```
+<div class="btn-group">
+      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">按钮下拉菜单<span class="caret"></span></button>
+      <ul class="dropdown-menu">
+          <li><a href="##">按钮下拉菜单项</a></li>
+          <li><a href="##">按钮下拉菜单项</a></li>
+          <li><a href="##">按钮下拉菜单项</a></li>
+          <li><a href="##">按钮下拉菜单项</a></li>
+      </ul>
+</div>
+```
+实现样式代码如下：
+查看bootstrap.css文件第3204行～第3223行
+```
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+.btn-group > .btn + .dropdown-toggle {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+.btn-group > .btn-lg + .dropdown-toggle {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+.btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.btn-group.open .dropdown-toggle.btn-link {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+```
+运行的效果如下：
+![Alt text](http://img.mukewang.com/53e9be8300019b2a02020189.jpg)
 ###
+按钮的向下向上三角形
+按钮的向下三角形，我们是通过在`<button>`标签中添加一个“`<span>`”标签元素，并且命名为“caret”:
+```
+<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">按钮下拉菜单<span class="caret"></span></button>
+```
+这个三角形完全是通过CSS代码来实现的：
+
+源码请查看bootstrap.css文件第2994行～第3003行
+```
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+```
+另外在按钮中的三角形“caret”做了一定的样式处理：
+
+源码查看bootstrap.css文件第3224行～第3233行
+```
+.btn .caret {
+  margin-left: 0;
+}
+.btn-lg .caret {
+  border-width: 5px 5px 0;
+  border-bottom-width: 0;
+}
+.dropup .btn-lg .caret {
+  border-width: 0 5px 5px;
+}
+```
+有的时候我们的下拉菜单会向上弹起（接下来一个小节会介绍），这个时候我们的三角方向需要朝上显示，实现方法：需要在“.btn-group”类上追加“dropup”类名（这也是做向上弹起下拉菜单要用的类名）。
+
+源码请查看bootstrap.css文件第3109行～第3114行
+```
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+  content: "";
+  border-top: 0;
+  border-bottom: 4px solid;
+}
+```
+上面代码中可以看出，向上三角与向下三角的区别：其实就是改变了一个border-bottom的值。
+
+下面是向上弹起菜单的例子：
+```
+<div class="btn-group dropup">
+  <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">按钮下拉菜单<span class="caret"></span></button>
+  <ul class="dropdown-menu">
+        <li><a href="##">按钮下拉菜单项</a></li>
+        <li><a href="##">按钮下拉菜单项</a></li>
+        <li><a href="##">按钮下拉菜单项</a></li>
+        <li><a href="##">按钮下拉菜单项</a></li>
+  </ul>
+</div>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e8651e0001c0a102900141.jpg)
