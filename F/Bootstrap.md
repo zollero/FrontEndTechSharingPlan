@@ -3076,4 +3076,133 @@ background-color: #e5e5e5;
 这里有一个媒体查询条件：“@media (min-width:768px){…}”表示自适应导航仅在浏览器视窗宽度大于768px才能按上图风格显示。当你的浏览器视窗宽度小于768px的时候，将会按下图的风格展示：
 ![Alt text](http://img.mukewang.com/53e874f70001bacb06150786.jpg)
 从上图效果可以得知，“nav-tabs”和“nav-justified”配合在一起使用，也就是自适应选项卡导航，浏览器视窗宽度小于768px时，在样式上做了另外的处理。
-###
+###导航加下拉菜单（二级导航）
+前面介绍的都是使用Bootstrap框架制作一级导航，但很多时候，在Web页面中是离不开二级导航的效果。那么在Bootstrap框架中制作二级导航就更容易了。只需要将li当作父容器，使用类名“dropdown”，同时在li中嵌套另一个列表ul，使用前面介绍下拉菜单的方法就可以：
+```
+<ul class="nav nav-pills">
+     <li class="active"><a href="##">首页</a></li>
+     <li class="dropdown">
+        <a href="##" class="dropdown-toggle" data-toggle="dropdown">教程<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="##">CSS3</a></li>
+            …
+       </ul>
+     </li>
+     <li><a href="##">关于我们</a></li>
+</ul>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e877e700014b0104150304.jpg)
+通过浏览器调试工具，不难发现，点击有二级导航的菜单项，会自动添加“open”类名，再次点击就会删除添加的“open”类名：
+![Alt text](http://img.mukewang.com/53e878580001e0b307120404.jpg)
+简单点来说，就是依靠这个类名来控制二级导航显示与否，并且设置了背景色和边框
+大家回忆一下，在制作下拉菜单时，可以用分隔线，那么在二级导航中是否可以呢？我们一起来看看：
+
+不用再说太多，只需要添加“`<li class=”nav-divider”></li>`”这样的一个空标签就可以了。
+
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e878b600013f7d04750337.jpg)
+###面包屑式导航
+面包屑(Breadcrumb)一般用于导航，主要是起的作用是告诉用户现在所处页面的位置（当前位置）。在Bootstrap框架中面包屑也是一个独立模块组件：
+
+LESS版本：对应源文件breadcrumbs.less
+Sass版本：对应源文件_breadcrumbs.scss
+编译出来的版本：源码对应bootstrap.css文件第4112行～第4129行
+使用方法：
+使用方式就很简单，为ol加入breadcrumb类：
+```
+<ol class="breadcrumb">
+  <li><a href="#">首页</a></li>
+  <li><a href="#">我的书</a></li>
+  <li class="active">《图解CSS3》</li>
+</ol>
+```
+实现原理：
+看来不错吧！作者是使用li+li:before实现li与li之间的分隔符，所以这种方案在IE低版本就惨了（不支持）。
+##导航条基础
+导航条（navbar）和上一节介绍的导航（nav），就相差一个字，多了一个“条”字。其实在Bootstrap框架中他们还是明显的区别。在导航条(navbar)中有一个背景色、而且导航条可以是纯链接（类似导航），也可以是表单，还有就是表单和导航一起结合等多种形式。在这一节中将一起探讨Bootstrap框架中导航条的使用。
+
+导航条和导航一样，在Bootstrap框架中是一个独立组件，所以你也可以根据自己的需求使用不同的版本：
+
+LESS版本：对应的源文件navbar.less
+Sass版本：对应的源文件_navbar.scss
+编译后的版本：查看bootstrap.css文件第3642行～第4111行（注意这个所说的Bootstrap版本是3.1.1，其它版本位置是不一致的），这五百多行代码已从原文中节取出来，放在右侧代码顶部“bootstrap.css”文件中，小伙伴们可以查看。
+###基础导航条
+在Bootstrap框中，导航条和导航从外观上差别不是太多，但在实际使用中导航条要比导航复杂得多。我们先来看导航条中最基础的一个——基础导航条。
+
+使用方法：
+
+在制作一个基础导航条时，主要分以下几步：
+第一步：首先在制作导航的列表(`<ul class=”nav”>`)基础上添加类名“navbar-nav”
+
+第二步：在列表外部添加一个容器（div），并且使用类名“navbar”和“navbar-default”
+“.navbar”样式的主要功能就是设置左右padding和圆角等效果，但他和颜色相关的样式没有进行任何的设置。其主要源码如下：
+
+源码查看bootstrap.css文件第3642行～第3647行
+```
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+```
+原理分析：
+
+而导航条的颜色都是通过“.navbar-default”来进行控制：
+
+源码查看bootstrap.css文件第3940行～第3943行
+```
+.navbar-default {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+```
+navbar-nav样式是在导航.nav的基础上重新调整了菜单项的浮动与内外边距。同时也不包括颜色等样式设置，源码请查看bootstrap.css文件第3785行～第3830行
+而颜色和其他样式是通过配合父容器“navbar-default”来一起实现
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>基本导航条</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+
+<body>
+<!--代码-->
+<div class="navbar navbar-default" role="navigation">
+     <ul class="nav navbar-nav">
+	 	<li class="active"><a href="##">网站首页</a></li>
+        <li><a href="##">系列教程</a></li>
+        <li><a href="##">名师介绍</a></li>
+        <li><a href="##">成功案例</a></li>
+        <li><a href="##">关于我们</a></li>
+	 </ul>
+</div>
+<!--代码-->
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+
+</body>
+</html>
+```
+###为导航条添加标题、二级菜单及状态
+加入导航条标题
+
+在Web页面制作中，常常在菜单前面都会有一个标题（文字字号比其它文字稍大一些），其实在Bootstrap框架也为大家做了这方面考虑，其通过“navbar-header”和“navbar-brand”来实现，示例查看代码编辑器（11-22）。
+
+原理分析：
+
+此功能主要起一个提醒功能，当然改良一下可以当作是logo(此处不做过多阐述)。其样式主要是加大了字体设置，并且设置了最大宽度
+同样在默认导航条（navbar-default）下，对navbar-brand也做了颜色处理
+导航条状态、二级菜单
+
+同样的，在基础导航条中对菜单提供了当前状态，禁用状态，悬浮状态等效果，而且也可以带有二级菜单的导航条
+效果图如下：
+![Alt text](http://img.mukewang.com/53f55cad00018e8008660190.jpg)
+###带表单的导航条
+有的导航条中会带有搜索表单，比如新浪微博的导航条：
+![Alt text](http://img.mukewang.com/53edcf9d00013cf506950056.jpg)
+在Bootstrap框架中提供了一个“navbar-form”，使用方法很简单，在navbar容器中放置一个带有navbar-form类名的表单
