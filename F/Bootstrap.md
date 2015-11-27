@@ -2876,3 +2876,100 @@ content: " ";
 ```
 运行效果如下：
 ![Alt text](http://img.mukewang.com/53e8651e0001c0a102900141.jpg)
+###向上弹起的下拉菜单
+有些菜单是需要向上弹出的，比如说你的菜单在页面最底部，而这个菜单正好有一个下拉菜单，为了让用户有更好的体验，不得不让下拉菜单向上弹出。在Bootstrap框架中专门为这种效果提代了一个类名“dropup”。使用方法正如前面所示，只需要在“btn-group”上添加这个类名（当然，如果是普通向上弹出下拉菜单，你只需要在“dropdown”类名基础上追加“dropup”类名即可）。
+```
+<div class="btn-group dropup">
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">按钮下拉菜单<span class="caret"></span></button>
+    <ul class="dropdown-menu">
+         <li><a href="##">按钮下拉菜单项</a></li>
+         <li><a href="##">按钮下拉菜单项</a></li>
+         <li><a href="##">按钮下拉菜单项</a></li>
+         <li><a href="##">按钮下拉菜单项</a></li>
+    </ul>
+</div>
+```
+运行的效果如下：
+![Alt text](http://img.mukewang.com/53e868aa0001399d01890186.jpg)
+源码请查阅bootstrap.css文件第3115行～第3120行
+```
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+```
+从上面的例子中可以看出，实现方法为：主要将“dropdown-menu”的top值变成了auto，而把bottom值换成了100%：
+###导航（基础样式）
+导航对于一位前端人员来说并不陌生。可以说导航是一个网站重要的元素组件之一，可以便于用户查找网站所提供的各项功能服务。导航的制作方法也是千奇百怪，五花八门。在这一节中将向大家介绍如何使用Bootstrap框架制作各式各样的导航。
+
+在Bootstrap框架将导航独立出来成为一个导航组件，根据不同的版本，可以找到对应的源码：
+
+   ☑ LESS版本：对应的源文件是navs.less
+
+   ☑ Sass版本：对应的源文件是_navs.scss
+
+   ☑ 编译后版本：对应源码是bootstrap.css文件第3450行～第3641行
+
+导航基础样式
+Bootstrap框架中制作导航条主要通过“.nav”样式。默认的“.nav”样式不提供默认的导航样式，必须附加另外一个样式才会有效，比如“nav-tabs”、“nav-pills”之类。比如下面就有一个tab导航条的例子，他的实现方法就是为ul标签加入.nav和nav-tabs两个类样式。
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>导航(基础样式)</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <li><a href="##">Home</a></li>
+    <li><a href="##">CSS3</a></li>
+    <li><a href="##">Sass</a></li>
+    <li><a href="##">jQuery</a></li>
+    <li><a href="##">Responsive</a></li>
+</ul>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+</body>
+</html>
+```
+###导航（标签形tab导航）
+标签形导航，也称为选项卡导航。特别是在很多内容分块显示的时，使用这种选项卡来分组十分适合。
+
+标签形导航是通过“nav-tabs”样式来实现。在制作标签形导航时需要在原导航“nav”上追加此类名，如：
+```
+<ul class="nav nav-tabs">
+     <li><a href="##">Home</a></li>
+     <li><a href="##">CSS3</a></li>
+     <li><a href="##">Sass</a></li>
+     <li><a href="##">jQuery</a></li>
+     <li><a href="##">Responsive</a></li>
+</ul>
+```
+运行的效果如下所示：
+![Alt text](http://img.mukewang.com/53e86aa60001805308940091.jpg)
+实现原理非常的简单，将菜单项（li）按块显示，并且让他们在同一水平上排列，然后定义非高亮菜单的样式和鼠标悬浮效果。
+其实上例的效果和我们平时看到的选项卡效果并不一致。一般情况之下，选项卡教会有一个当前选中项。其实在Bootstrap框架也相应提供了。假设我们想让“Home”项为当前选中项，只需要在其标签上添加类名“class="active"”即可：
+```
+<ul class="nav nav-tabs">
+    <li class="active"><a href="##">Home</a></li>
+    …
+</ul>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e86b7700019e0308540121.jpg)
+除了当前项之外，有的选项卡还带有禁用状态，实现这样的效果，只需要在标签项上添加“class="disabled"”即可：
+```
+<ul class="nav nav-tabs">
+     <li class="active"><a href="##">Home</a></li>
+     …
+     <li class="disabled"><a href="##">Responsive</a></li>
+</ul>
+```
+运行效果如下：
+![Alt text](http://img.mukewang.com/53e86c8b00015ca208550155.jpg)
+注意：我们看到的选项卡效果，点击菜单项就可以切换内容，如果要实现这样的效果需要配合js插件，这部分将在后面的教程中会介绍。
+###
