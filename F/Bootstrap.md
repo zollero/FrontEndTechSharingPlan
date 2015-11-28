@@ -3206,3 +3206,171 @@ navbar-nav样式是在导航.nav的基础上重新调整了菜单项的浮动与
 有的导航条中会带有搜索表单，比如新浪微博的导航条：
 ![Alt text](http://img.mukewang.com/53edcf9d00013cf506950056.jpg)
 在Bootstrap框架中提供了一个“navbar-form”，使用方法很简单，在navbar容器中放置一个带有navbar-form类名的表单
+```
+<body>
+<!--代码-->
+<div class="navbar navbar-default" role="navigation">
+  　<div class="navbar-header">
+  　    <a href="##" class="navbar-brand">慕课网</a>
+  　</div>
+    <ul class="nav navbar-nav">
+       <li class="active"><a href="##">网站首页</a></li>
+       <li class="dropdown">
+          <a href="##" data-toggle="dropdown" class="dropdown-toggle">系列教程<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+        	<li><a href="##">CSS3</a></li>
+        	<li><a href="##">JavaScript</a></li>
+        	<li class="disabled"><a href="##">PHP</a></li>
+          </ul>
+      </li>
+      <li><a href="##">名师介绍</a></li>
+      <li><a href="##">成功案例</a></li>
+      <li><a href="##">关于我们</a></li>
+	 </ul>
+     <form action="##" class="navbar-form navbar-left" rol="search">
+   	    <div class="form-group">
+   		   <input type="text" class="form-control" placeholder="请输入关键词" />
+   	    </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+     </form>
+</div>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+
+</body>
+```
+在上面的示例中，大家看到了“navbar-left”让表单左浮动，更好实现对齐。在Bootstrap框架中，还提供了“navbar-right”样式，让元素在导航条靠右对齐。
+
+源码请查看bootstrap.css文件第3831行～第3838行
+```
+@media (min-width: 768px) {
+ .navbar-left {
+ float: left !important;
+}
+.navbar-right {
+ float: right !important;
+ }
+}
+```
+注意：这里有一个条件，只有当浏览器视窗宽度大于768px生效。
+###导航条中的按钮、文本和链接
+Bootstrap框架的导航条中除了使用navbar-brand中的a元素和navbar-nav的ul和navbar-form之外，还可以使用其他元素。框架提供了三种其他样式：
+
+1、导航条中的按钮navbar-btn
+
+2、导航条中的文本navbar-text
+
+3、导航条中的普通链接navbar-link
+但这三种样式在框架中使用时受到一定的限制，需要和navbar-brand、navbar-nav配合起来使用。而且对数量也有一定的限制，一般情况在使用一到两个不会有问题，超过两个就会有问题。
+我们来看一下navbar-text的一个简单应用:
+```
+<div class="navbar navbar-default" role="navigation">
+  　<div class="navbar-header">
+  　    <a href="##" class="navbar-brand">慕课网</a>
+  　</div>
+	 <ul class="nav navbar-nav">
+	 	<li><a href="##" class="navbar-text">Navbar Text</a></li>
+	 	<li><a href="##" class="navbar-text">Navbar Text</a></li>
+	 	<li><a href="##" class="navbar-text">Navbar Text</a></li>
+	 </ul>
+</div>
+```
+在结果窗口中查看效果，可以看出明显的存在问题，通过浏览器调试工具，可以看到a标签有margin-top和margin-bottom的值为15px，欲将其对齐，我们将上面的结构做一定的调整：
+```
+<div class="navbar navbar-default" role="navigation">
+　<div class="navbar-header">
+　    <a href="##" class="navbar-brand">慕课网</a>
+　</div>
+  <div class="nav navbar-nav">
+      <a href="##" class="navbar-text">Navbar Text</a>
+      <a href="##" class="navbar-text">Navbar Text</a>
+      <a href="##" class="navbar-text">Navbar Text</a>
+  </div>
+</div>
+```
+换换标签就OK了。
+###固定导航条
+很多情况之一，设计师希望导航条固定在浏览器顶部或底部，这种固定式导航条的应用在移动端开发中更为常见。Bootstrap框架提供了两种固定导航条的方式：
+
+   ☑  .navbar-fixed-top：导航条固定在浏览器窗口顶部
+
+   ☑  .navbar-fixed-bottom：导航条固定在浏览器窗口底部
+
+使用方法很简单，只需要在制作导航条最外部容器navbar上追加对应的类名即可：
+```
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+　…
+</div>
+<div class="content">我是内容</div>
+<div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+　…
+</div>
+```
+实现原理：
+实现原理很简单，就是在navbar-fixed-top和navbar-fixed-bottom使用了position：fixed属性，并且设置navbar-fixed-top的top值为0,而navbar-fixed-bottom的bottom值为0。具体的源码如下：
+
+源码请查看bootstrap.css文件第3717 行～第3738行
+```
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+@media (min-width: 768px) {
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  border-radius: 0;
+  }
+}
+.navbar-fixed-top {
+  top: 0;
+  border-width: 0 0 1px;
+}
+.navbar-fixed-bottom {
+  bottom: 0;
+  margin-bottom: 0;
+  border-width: 1px 0 0;
+}
+```
+存在bug及解决方法:
+
+从运行效果中大家不难发现，页面主内容顶部和底部都被固定导航条给遮住了。为了避免固定导航条遮盖内容，我们需要在body上做一些处理：
+```
+body {
+  padding-top: 70px;/*有顶部固定导航条时设置*/
+  padding-bottom: 70px;/*有底部固定导航条时设置*/
+}
+```
+因为固定导航条默认高度是50px，我们一般设置padding-top和padding-bottom的值为70px，当然有的时候还是需要具体情况具体分析。
+第二种解决这个bug方法：
+
+其实除了这种解决方案之外，我们还有其他的解决方法，把固定导航条都放在页面内容前面：
+```
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+　…
+</div>
+<div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+　…
+</div>
+<div class="content">我是内容</div>
+```
+在文件中添加下列样式代码：
+```
+.navbar-fixed-top ~ .content {
+   padding-top: 70px;
+}
+.navbar-fixed-bottom ~ .content {
+  padding-bottom: 70px;
+}
+```
+当然，这种方法有的时候也是需要具体情况具体分析的。
+###响应式导航条
+如今浏览Web页面的终端不在是一尘不变了，前面示例实现的导航条仅能适配于大屏幕的浏览器，但当浏览器屏幕变小的时候，就不适合了。因此响应式设计也就随之而来。那么在一个响应式的Web页面中，对于响应式的导航条也就非常的重要。例如Bootstrap框架官网的导航条：
+![Alt text](http://img.mukewang.com/53eded3b0001db2a06970046.jpg)
+（宽屏时效果）
+![Alt text](http://img.mukewang.com/53f580af00017ef408720073.jpg)
+（中屏时效果）
+![Alt text](http://img.mukewang.com/53f580e30001bba208690079.jpg)
+（窄屏时效果）
