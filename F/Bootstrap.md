@@ -3374,3 +3374,185 @@ body {
 （中屏时效果）
 ![Alt text](http://img.mukewang.com/53f580e30001bba208690079.jpg)
 （窄屏时效果）
+如何使用Bootstrap框架实现响应式导航条效果？
+先来看HTML结构见右侧代码区。
+
+使用方法：
+
+1、保证在窄屏时需要折叠的内容必须包裹在带一个div内，并且为这个div加入collapse、navbar-collapse两个类名。最后为这个div添加一个class类名或者id名。
+
+2、保证在窄屏时要显示的图标样式（固定写法）：
+```
+<button class="navbar-toggle" type="button" data-toggle="collapse">
+  <span class="sr-only">Toggle Navigation</span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+</button>
+```
+3、并为button添加data-target=".类名/#id名"，究竞是类名还是id名呢？由需要折叠的div来决定。如：
+
+需要折叠的div代码段：
+```
+<div class="collapse navbar-collapse" id="example">
+      <ul class="nav navbar-nav">
+      …
+      </ul>
+</div>
+```
+窄屏时显示的图标代码段：
+```
+<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#example">
+  ...
+</button>
+```
+也可以这么写，需要折叠的div代码段：
+```
+<div class="collapse navbar-collapse example" >
+      <ul class="nav navbar-nav">
+      …
+      </ul>
+</div>
+```
+窄屏时要显示的图标：
+```
+<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".example">
+  ...
+</button>
+```
+举个例子：
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>响应式导航条</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style type="text/css">
+    body{padding:50px 0 0 0;}
+</style>
+</head>
+
+<body>
+<!--代码-->
+<div class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+     　<!-- .navbar-toggle样式用于toggle收缩的内容，即nav-collapse collapse样式所在元素 -->
+       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+         <span class="sr-only">Toggle Navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <!-- 确保无论是宽屏还是窄屏，navbar-brand都显示 -->
+       <a href="##" class="navbar-brand">慕课网</a>
+  </div>
+  <!-- 屏幕宽度小于768px时，div.navbar-responsive-collapse容器里的内容都会隐藏，显示icon-bar图标，当点击icon-bar图标时，再展开。屏幕大于768px时，默认显示。 -->
+  <div class="collapse navbar-collapse navbar-responsive-collapse">
+    	<ul class="nav navbar-nav">
+      		<li class="active"><a href="##">网站首页</a></li>
+      		<li><a href="##">系列教程</a></li>
+      		<li><a href="##">名师介绍</a></li>
+      		<li><a href="##">成功案例</a></li>
+      		<li><a href="##">关于我们</a></li>
+	 	</ul>
+  </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+
+</body>
+</html>
+```
+###反色导航条
+反色导航条其实是Bootstrap框架为大家提供的第二种风格的导航条，与默认的导航条相比，使用方法并无区别，只是将navbar-deafult类名换成navbar-inverse。其变化只是导航条的背景色和文本做了修改。如下：
+```
+<div class="navbar  navbar-inverse" role="navigation">
+<div class="nav bar-header">
+      <a href="##" class="navbar-brand">慕课网</a>
+</div>
+<ul class="nav navbar-nav">
+      <li class="active"><a href="">首页</a></li>
+      <li><a href="">教程</a></li>
+      <li><a href="">关于我们</a></li>
+</ul>
+</div>
+```
+###分页导航（带页码的分页导航）
+分页导航几乎在哪个网站都可见。好的分页导航能给用户带来更好的用户体验。在Bootstrap框架中提供了两种分页导航：
+
+   ☑   带页码的分页导航
+
+   ☑   带翻页的分页导航
+
+带页码的分页导航
+
+带页码的分页导航，可能是最常见的一种分页导航，特别是在列表页内容超多的时候，会给用户提供分页的导航方式。在Bootstrap框架为开发者提供不同的版本
+使用方法：
+
+平时很多同学喜欢用div>a和div>span结构来制作带页码的分页导航。不过，在Bootstrap框架中使用的是ul>li>a这样的结构，在ul标签上加入pagination方法：
+```
+<ul class="pagination">
+   <li><a href="#">&laquo;</a></li>
+   <li><a href="#">1</a></li>
+   <li><a href="#">2</a></li>
+   <li><a href="#">3</a></li>
+   <li><a href="#">4</a></li>
+   <li><a href="#">5</a></li>
+   <li><a href="#">&raquo;</a></li>
+</ul>
+```
+运行效果：
+![Alt text](http://img.mukewang.com/53f5972900018aa605480162.jpg)
+实现原理：
+
+从效果中可以看出，当前状态页码会高亮显示，而且不能点击。而最后一页是禁用状态，也不能点击。实现样式：
+```
+.pagination> .active > a,
+.pagination> .active > span,
+.pagination> .active >a:hover,
+.pagination> .active >span:hover,
+.pagination> .active >a:focus,
+.pagination> .active >span:focus {
+z-index: 2;
+color: #fff;
+cursor: default;
+background-color: #428bca;
+border-color: #428bca;
+}
+.pagination> .disabled > span,
+.pagination> .disabled >span:hover,
+.pagination> .disabled >span:focus,
+.pagination> .disabled > a,
+.pagination> .disabled >a:hover,
+.pagination> .disabled >a:focus {
+color: #999;
+cursor: not-allowed;
+background-color: #fff;
+border-color: #ddd;
+}
+```
+注意：要禁用当前状态和禁用状态不能点击，我们还要依靠js来实现，或者将这两状态下的a标签换成span标签。
+大小设置：
+
+在Bootstrap框架中，也可以通过几个不同的情况来设置其大小。类似于按钮一样：
+
+1、通过“pagination-lg”让分页导航变大；
+
+2、通过“pagination-sm”让分页导航变小：
+```
+<ul class="pagination pagination-lg">
+ …
+</ul>
+<ul class="pagination">
+ …
+</ul>
+<ul class="pagination pagination-sm">
+ …
+</ul>
+```
+大小设置实现原理：
+
+其实就是通增加相应的padding大小、font-size大小和圆角大小
+###
