@@ -3555,4 +3555,191 @@ border-color: #ddd;
 大小设置实现原理：
 
 其实就是通增加相应的padding大小、font-size大小和圆角大小
-###
+###分页导航（翻页分页导航）
+Bootstrap框架除了提供带页码的分页导航之外还提供了翻页导航。这种分页导航常常在一些简单的网站上看到，比如说个人博客，杂志网站等。这种分页导航是看不到具体的页码，只会提供一个“上一页”和“下一页”的按钮。
+使用方法：
+
+在实际使用中，翻页分页导航和带页码的分页导航类似，为ul标签加入pager类：
+```
+<ul class="pager">
+   <li><a href="#">&laquo;上一页</a></li>
+   <li><a href="#">下一页&raquo;</a></li>
+</ul>
+```
+对齐样式设置：
+
+默认情况之下，翻页分页导航是居中显示，但有的时候我们需要一个居左，一个居右。Bootstrap框架提供了两个样式：
+
+   ☑   previous：让“上一步”按钮居左
+
+   ☑   next：让“下一步”按钮居右
+
+具体使用的时候，只需要在li标签上添加对应类名即可：
+```
+<ul class="pager">
+   <li class="previous"><a href="#">&laquo;上一页</a></li>
+   <li class="next"><a href="#">下一页&raquo;</a></li>
+</ul>
+```
+状态样式设置：
+
+和带页码分页导航一样，如果在li标签上添加了disabled类名的时候，分页按钮处于禁用状态，但同样不能禁止其点击功能。你可以通过js来处理，或将a标签换成span标签。
+```
+<ul class="pager">
+  <li class="disabled"><span>&laquo;上一页</span></li>
+  <li><a href="#">下一页&raquo;</a></li>
+</ul>
+```
+###标签
+在一些Web页面中常常会添加一个标签用来告诉用户一些额外的信息，比如说在导航上添加了一个新导航项，可能就会加一个“new”标签，来告诉用户。这是新添加的导航项。如下图所示：
+![Alt text](http://img.mukewang.com/53f5a3810001256d05550068.jpg)
+那么在Bootstrap框架中特意将这样的效果提取出来成为一个标签组件，并且以“.label”样式来实现高亮显示。
+使用原理：
+
+使用方法很简单，你可以在使用span这样的行内标签：
+```
+<h3>Example heading <span class="label label-default">New</span></h3>
+```
+实现原理：
+
+bootstrap.css文件第4261行～第4272行
+```
+.label {
+display: inline;
+padding: .2em .6em .3em;
+font-size: 75%;
+font-weight: bold;
+line-height: 1;
+color: #fff;
+text-align: center;
+white-space: nowrap;
+vertical-align: baseline;
+border-radius: .25em;
+}
+```
+如果使用的是a标签元素来制作的话，为了让其更美观，在hover状态去掉下划线之类：
+
+bootstrap.css文件第4273行～4278行
+```
+.label[href]:hover,
+.label[href]:focus {
+color: #fff;
+text-decoration: none;
+cursor: pointer;
+}
+```
+有的时候标签内没有内容的时候，可以借助CSS3的:empty伪元素将其隐藏：
+```
+.label:empty {
+display: none;
+}
+```
+颜色样式设置：
+
+和按钮元素button类似，label样式也提供了多种颜色：
+
+  ☑   label-deafult:默认标签，深灰色
+
+  ☑   label-primary：主要标签，深蓝色
+
+  ☑   label-success：成功标签，绿色
+
+  ☑   label-info：信息标签，浅蓝色
+
+  ☑   label-warning：警告标签，橙色
+
+  ☑   label-danger：错误标签，红色
+
+主要是通过这几个类名来修改背景颜色和文本颜色：
+```
+<span class="label label-default">默认标签</span>
+<span class="label label-primary">主要标签</span>
+<span class="label label-success">成功标签</span>
+<span class="label label-info">信息标签</span>
+<span class="label label-warning">警告标签</span>
+<span class="label label-danger">错误标签</span>
+```
+###徽章
+从某种意义上来说，徽章效果和前面介绍的标签效果是极其的相似。也是用来做一些提示信息使用。常出现的是一些系统发出的信息，比如你登录你的twitter后，如果你信息没有看，系统会告诉你有多少信息未读，如下图所示：
+![Alt text](http://img.mukewang.com/53f5aac500010a7f04370079.jpg)
+在Bootstrap框架中，把这种效果称作为徽章效果，使用“badge”样式来实现。
+使用方法：
+
+使用方法，其实也没什么太多可说的，你可以像标签一样，使用span标签来制作，然后为他加入badge类：
+```
+<a href="#">Inbox <span class="badge">42</span></a>
+```
+同样也使用:empty伪元素，当没有内容的时候隐藏：
+```
+.badge:empty {
+display: none;
+}
+```
+正如开头所说，可以将徽章与按钮或者导航之类配合使用：
+````
+<div class="navbar navbar-default" role="navigation">
+　<div class="navbar-header">
+　       <a href="##" class="navbar-brand">慕课网</a>
+　</div>
+  <ul class="nav navbar-nav">
+         <li class="active"><a href="##">网站首页</a></li>
+         <li><a href="##">系列教程</a></li>
+         <li><a href="##">名师介绍</a></li>
+         <li><a href="##">成功案例<span class="badge">23</span></a></li>
+         <li><a href="##">关于我们</a></li>
+  </ul>
+</div>
+```
+按钮和胶囊形导航设置徽章：
+
+另外，徽章在按钮元素button和胶囊形导航nav-pills也可以有类似的样式，只不过是颜色不同而以：
+```
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Home <span class="badge">42</span></a></li>
+   …
+  <li><a href="#">Messages<span class="badge">3</span></a></li>
+</ul>
+<ul class="navnav-pills nav-stacked" style="max-width: 260px;">
+<li class="active">
+<a href="#">
+  <span class="badge pull-right">42</span>
+          Home
+</a>
+</li>
+…
+<li>
+<a href="#">
+    <span class="badge pull-right">3</span>
+          Messages
+</a>
+</li>
+</ul>
+<button class="btnbtn-primary" type="button">
+      Messages <span class="badge">4</span>
+</button>
+```
+##缩略图（一）
+缩略图在网站中最常用的地方就是产品列表页面，一行显示几张图片，有的在图片底下（左侧或右侧）带有标题、描述等信息。Bootstrap框架将这一部分独立成一个模块组件。并通过“thumbnail”样式配合bootstrap的网格系统来实现。可以将产品列表页变得更好看。
+使用方法：
+
+通过“thumbnail”样式配合bootstrap的网格系统来实现。
+
+前面也说过了，缩略图的实现是配合网格系统一起使用，假设我们一个产品列表，如下图所示：
+![Alt text](http://img.mukewang.com/5418e97a00014d6806620159.jpg)
+先来看结构：
+```
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <img src="http://img.mukewang.com/5434eba100014fe906000338.png" style="height: 180px; width: 100%; display: block;" alt="">
+            </a>
+        </div>
+    …
+    </div>
+</div>
+```
+上面的结构表示的是在宽屏幕（可视区域大于768px）的时候，一行显示四个缩略图(单击全屏查看效果)：
+![Alt text](http://img.mukewang.com/5418ea8a00016d7c06500135.jpg)
+在窄屏（可视区域小于768px）的时候，一行只显示两个缩略图：
+![Alt text](http://img.mukewang.com/5418eac00001bf4a06550366.jpg)
