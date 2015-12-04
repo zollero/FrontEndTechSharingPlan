@@ -3718,28 +3718,3 @@ display: none;
       Messages <span class="badge">4</span>
 </button>
 ```
-##缩略图（一）
-缩略图在网站中最常用的地方就是产品列表页面，一行显示几张图片，有的在图片底下（左侧或右侧）带有标题、描述等信息。Bootstrap框架将这一部分独立成一个模块组件。并通过“thumbnail”样式配合bootstrap的网格系统来实现。可以将产品列表页变得更好看。
-使用方法：
-
-通过“thumbnail”样式配合bootstrap的网格系统来实现。
-
-前面也说过了，缩略图的实现是配合网格系统一起使用，假设我们一个产品列表，如下图所示：
-![Alt text](http://img.mukewang.com/5418e97a00014d6806620159.jpg)
-先来看结构：
-```
-<div class="container">
-    <div class="row">
-        <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-                <img src="http://img.mukewang.com/5434eba100014fe906000338.png" style="height: 180px; width: 100%; display: block;" alt="">
-            </a>
-        </div>
-    …
-    </div>
-</div>
-```
-上面的结构表示的是在宽屏幕（可视区域大于768px）的时候，一行显示四个缩略图(单击全屏查看效果)：
-![Alt text](http://img.mukewang.com/5418ea8a00016d7c06500135.jpg)
-在窄屏（可视区域小于768px）的时候，一行只显示两个缩略图：
-![Alt text](http://img.mukewang.com/5418eac00001bf4a06550366.jpg)
