@@ -2,6 +2,8 @@
 
 前端四人小分队，推行“前端技术分享”的计划。
 
+代码风格规范首版已上传：[点我查看](https://github.com/zuaKevin/FrontEndTechSharingPlan/blob/master/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC%E8%A7%84%E8%8C%83--HTML%2CCSS%2CJAVASCRIPT(Beta).md)
+
 初步确定，每半个月进行一次分享。四个人轮流担任主讲，讲授各自学习的内容。
 
 ###### 规则：
